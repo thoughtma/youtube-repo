@@ -63,7 +63,7 @@ CACHES = {
     }
 }
 
-ROOT_URLCONF = 'tulip.urls'
+ROOT_URLCONF = 'learnstack.urls'
 
 TEMPLATES = [
     {
@@ -81,7 +81,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'tulip.wsgi.application'
+WSGI_APPLICATION = 'learnstack.wsgi.application'
 
 
 # Database
