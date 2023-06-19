@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # The most important thing is to be build relative path
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -68,7 +71,7 @@ ROOT_URLCONF = 'learnstack.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS':  [os.path.join(BASE_DIR,'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -82,6 +85,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'learnstack.wsgi.application'
+YOUTUBE_API_KEY = os.getenv('YOUTUBE_API_KEY')
 
 
 # Database

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>YouTube Search</title>
+</head>
+<body>
+    <h1>YouTube Search</h1>
+    <form method="post" action="{% url 'search' %}">
+        {% csrf_token %}
+        <input type="text" name="query" placeholder="Enter your search query">
+        <button type="submit">Search</button>
+    </form>
+</body>
+</html>
