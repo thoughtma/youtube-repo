@@ -87,8 +87,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'learnstack.wsgi.application'
 YOUTUBE_API_KEY = os.getenv('YOUTUBE_API_KEY')
-YOUR_CLIENT_ID = os.getenv('YOUR_CLIENT_ID')
-YOUR_CLIENT_SECRET = os.getenv('YOUR_CLIENT_SECRET')
+UDEMY_ACCESS_TOKEN = os.getenv('UDEMY_ACCESS_TOKEN')
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases

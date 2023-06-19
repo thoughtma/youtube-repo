@@ -7,7 +7,7 @@ def search_form(request):
 def search_results(request):
     # breakpoint()
     query = request.GET.get('query')  # Retrieve user's search query
-    access_token = 'sfFKutgb5PqnDUmcmGwmKAk3nKP5D1EPfFFZgE8L'
+    access_token = 'UDEMY_ACCESS_TOKEN'
     search_url = f'https://www.udemy.com/api-2.0/courses/?search={query}&page_size=15'
 
     # Use the access token to make the search request
