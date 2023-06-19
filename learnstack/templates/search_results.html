@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Results</title>
+    <style>
+        .video-block {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .thumbnail {
+            width: 120px;
+            height: 90px;
+            margin-right: 10px;
+        }
+
+        .details {
+            flex-grow: 1;
+        }
+    </style>
+</head>
+<body>
+    <h1>Search Results</h1>
+    {% for results in results %}
+        <div class="video-block">
+            <img class="thumbnail" src="{{ results.thumbnail_url }}" alt="Video Thumbnail">
+            <div class="details">
+                <h2>{{ results.title }}</h2>
+                <p>{{ results.description }}</p>
+                <a href="https://www.udemy.com{{results.url}}" target="_blank">Watch on Udemy</a>
+            </div>
+        </div>
+    {% endfor %}
+</body>
+</html>
