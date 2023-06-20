@@ -2315,3 +2315,53 @@ section {
 #footer .credits a {
   color: #a2cce3;
 }
+
+.search-bar {
+  display: none;
+}
+
+.icon-box:hover .search-bar {
+  display: block;
+}
+
+/* Example styles for the search bar */
+.search-bar {
+  background-color: #f1f1f1;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.search-bar input[type="text"] {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 3px;
+  font-size: 16px;
+}
+
+.search-bar input[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  margin-left: 10px;
+  font-size: 16px;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .search-bar {
+      flex-direction: column;
+  }
+  
+  .search-bar input[type="text"],
+  .search-bar input[type="submit"] {
+      margin: 10px 0;
+      width: 100%;
+  }
+}
