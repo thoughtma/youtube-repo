@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'youtubeapp',
     'udemyapp',
+    'djongo'
     
 ]
 
@@ -99,6 +100,16 @@ UDEMY_ACCESS_TOKEN = os.getenv('UDEMY_ACCESS_TOKEN')
 #     }
 # }
 
+DATABASES = {
+        'default': {
+            'ENGINE': 'djongo',
+            'NAME': 'your-db-name',
+            'ENFORCE_SCHEMA': False,
+            'CLIENT': {
+                'host': 'mongodb+srv://AdityaMeena:Aditya@3008 @cluster0.fc8t0s5.mongodb.net/'
+            }  
+        }
+}
 
 
 
