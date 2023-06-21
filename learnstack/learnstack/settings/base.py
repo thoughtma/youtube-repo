@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'youtubeapp',
     'udemyapp',
     'Dashboardapp',
+    'djongo'
     
 ]
 
@@ -89,24 +90,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'learnstack.wsgi.application'
 YOUTUBE_API_KEY = os.getenv('YOUTUBE_API_KEY')
 UDEMY_ACCESS_TOKEN = os.getenv('UDEMY_ACCESS_TOKEN')
-
-
-
-import urllib.parse
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'djongo',
-        'ENFORCE_SCHEMA': False,
-        'NAME': 'courses_db',
-        'CLIENT': {
-            'host': 'mongodb+srv://AdityaMeena:' + urllib.parse.quote_plus('Aditya@3008') + '@cluster0.fc8t0s5.mongodb.net/',
-            'port': 27017,
-            'authSource': 'admin',
-        },
-    },
-}
-
 
 
 # Password validation
