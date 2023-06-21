@@ -26,8 +26,6 @@ DATABASES = {
         'CLIENT': {
             'host': 'mongodb+srv://AdityaMeena:' + urllib.parse.quote_plus('Aditya@3008') + '@cluster0.fc8t0s5.mongodb.net/',
             'port': 27017,
-            # 'username': urllib.parse.quote_plus('AdityaMeena'),
-            # 'password': urllib.parse.quote_plus('Aditya@3008'),
             'authSource': 'admin',
         },
     },
