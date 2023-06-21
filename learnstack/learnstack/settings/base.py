@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'youtubeapp',
     'udemyapp',
     'Dashboardapp',
+    'djongo'
     
 ]
 
@@ -89,18 +90,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'learnstack.wsgi.application'
 YOUTUBE_API_KEY = os.getenv('YOUTUBE_API_KEY')
 UDEMY_ACCESS_TOKEN = os.getenv('UDEMY_ACCESS_TOKEN')
-
-# Database
-# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-
 
 
 # Password validation

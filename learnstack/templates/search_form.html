@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{% comment %} <!DOCTYPE html>
 <html>
 <head>
     <title>Search Form</title>
@@ -10,4 +10,24 @@
         <button type="submit">Search</button>
     </form>
 </body>
-</html>
+</html> {% endcomment %}
+
+
+
+<html>
+    <head>
+        <title>Search Form</title>
+    </head>
+    <body>
+<div class="wrap">
+    <div class="search">
+    <form action="{% url 'search_results' %}" method="GET">
+       <input type="text" name="query" class="searchTerm" placeholder="What are you looking for?">
+       <button type="submit" class="searchButton">
+         <i class="fa fa-search"></i>
+       </button>
+    </form>
+    </div>
+ </div>
+</body>
+</html> 
