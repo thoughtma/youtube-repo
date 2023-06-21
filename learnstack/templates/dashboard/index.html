@@ -29,6 +29,7 @@
 
     <!-- Template Main CSS File -->
     <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+
     </head>
 
     <body>
@@ -109,17 +110,29 @@
                             <div class="icon"><i class='fa fa-youtube-play red-color' style="color: red;"></i></div>
                             <h4 class="title"><a href="">YouTube</a></h4>
                             <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
+                            <div class="search-bar">
+                                <form action="{% url 'searching' %}" method="GET">
+                                    <input type="text" name="query" placeholder="Search...">
+                                    <input type="submit" value="Search">
+                                </form>
+                            </div>
                         </div>
                     </div>
-        
+                
                     <div class="col-md-6 col-lg-4 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
                         <div class="icon-box icon-box-cyan">
                             <div class="icon"><svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Udemy</title><path d="M12 0L5.81 3.573v3.574l6.189-3.574 6.191 3.574V3.573zM5.81 10.148v8.144c0 1.85.589 3.243 1.741 4.234S10.177 24 11.973 24s3.269-.482 4.448-1.474c1.179-.991 1.768-2.439 1.768-4.314v-8.064h-3.242v7.85c0 2.036-1.509 3.055-2.948 3.055-1.428 0-2.947-.991-2.947-3.027v-7.878z"/></svg></div>
                             <h4 class="title"><a href="">Udemy</a></h4>
                             <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
+                            <div class="search-bar">
+                                <form action="{% url 'search_results' %}" method="GET">
+                                    <input type="text" name="query" placeholder="Search...">
+                                    <input type="submit" value="Search">
+                                </form>
+                            </div>
                         </div>
                     </div>
-        
+
                     <div class="col-md-6 col-lg-4 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
                         <div class="icon-box icon-box-green">
                             <div class="icon"><svg role="img" xmlns="http://www.w3.org/2000/svg"

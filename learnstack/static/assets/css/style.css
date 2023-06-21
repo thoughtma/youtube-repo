@@ -2315,3 +2315,35 @@ section {
 #footer .credits a {
   color: #a2cce3;
 }
+
+.search-bar {
+  display: none;
+}
+
+.icon-box:hover .search-bar {
+  display: block;
+}
+
+/* Example styles for the search bar */
+.search-bar {
+  background-color: #f1f1f1;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.search-bar input[type="text"] {
+  width: 100%;
+  padding: 5px;
+  border: none;
+  border-radius: 3px;
+}
+
+.search-bar input[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
