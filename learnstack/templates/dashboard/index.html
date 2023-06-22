@@ -29,7 +29,8 @@
 
     <!-- Template Main CSS File -->
     <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
     </head>
 
     <body>
@@ -37,24 +38,35 @@
     <!-- ======= Header ======= -->
     <header id="header" class="fixed-top d-flex align-items-center header-transparent">
         <div class="container d-flex justify-content-between align-items-center">
+            <div class="logo">
+                <h1 class="text-light"><a href="index.html"><span>LEARNSTACK</span></a></h1>
+            </div>
 
-        <div class="logo">
-            <h1 class="text-light"><a href="index.html"><span>LEARNSTACK</span></a></h1>
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search courses...">
+                <select id="categoryFilter" style="background-color: aliceblue;">
+                    <option value="">All Categories</option>
+                    <option value="development">YouTube</option>
+                    <option value="design">Udemy</option>
+                    <!-- Add more category options as needed -->
+                </select>
+                <button id="searchButton" class="btn btn-primary">Search</button>
+            </div>
+    
+            <nav id="navbar" class="navbar">
+                <ul>
+                    <li><a class="active" href="/">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+                <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav><!-- .navbar -->
+    
         </div>
-
-        <nav id="navbar" class="navbar">
-            <ul>
-            <li><a class="active" href="/">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="services.html">Services</a></li>
-            <li><a href="blog.html">Blog</a></li>
-            <li><a href="contact.html">Contact Us</a></li>
-            </ul>
-            <i class="bi bi-list mobile-nav-toggle"></i>
-        </nav><!-- .navbar -->
-
-        </div>
-    </header><!-- End Header -->
+    </header>
+    <!-- End Header -->
 
     <!-- ======= Hero Section ======= -->
     <section id="hero" class="d-flex justify-cntent-center align-items-center">
@@ -110,11 +122,11 @@
                             <div class="icon"><i class='fa fa-youtube-play red-color' style="color: red;"></i></div>
                             <h4 class="title"><a href="">YouTube</a></h4>
                             <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
-                            <div class="search-bar">
-                                <form action="{% url 'searching' %}" method="GET">
-                                    <input type="text" name="query" placeholder="Search...">
-                                    <input type="submit" value="Search">
-                                </form>
+                            <div class="search">
+                                <input type="search" class="search-box" />
+                                <span class="search-button">
+                                    <span class="search-icon"></span>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -124,11 +136,11 @@
                             <div class="icon"><svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Udemy</title><path d="M12 0L5.81 3.573v3.574l6.189-3.574 6.191 3.574V3.573zM5.81 10.148v8.144c0 1.85.589 3.243 1.741 4.234S10.177 24 11.973 24s3.269-.482 4.448-1.474c1.179-.991 1.768-2.439 1.768-4.314v-8.064h-3.242v7.85c0 2.036-1.509 3.055-2.948 3.055-1.428 0-2.947-.991-2.947-3.027v-7.878z"/></svg></div>
                             <h4 class="title"><a href="">Udemy</a></h4>
                             <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
-                            <div class="search-bar">
-                                <form action="{% url 'search_results' %}" method="GET">
-                                    <input type="text" name="query" placeholder="Search...">
-                                    <input type="submit" value="Search">
-                                </form>
+                            <div class="search">
+                                <input type="search" class="search-box" />
+                                <span class="search-button">
+                                    <span class="search-icon"></span>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -395,6 +407,35 @@
 
     <!-- Template Main JS File -->
     <script src="{% static 'assets/js/main.js' %}"></script>
+    <script>
+        $(document).ready(function() {
+            $('.search-button').click(function() {
+            $(this).parent().toggleClass('open');
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        var searchButton = document.getElementById('searchButton');
+        searchButton.addEventListener('click', performSearch);
+
+        function performSearch() {
+            var searchInput = document.getElementById('searchInput');
+            var categoryFilter = document.getElementById('categoryFilter');
+            var searchQuery = searchInput.value.trim();
+            var selectedCategory = categoryFilter.value;
+
+            if (searchQuery !== '') {
+                // Redirect to the search results page with the search query and category
+                var url = 'search.html?q=' + encodeURIComponent(searchQuery);
+                if (selectedCategory !== '') {
+                    url += '&category=' + encodeURIComponent(selectedCategory);
+                }
+                window.location.href = url;
+                }
+            }
+        });
+    </script>
 
 </body>
 
