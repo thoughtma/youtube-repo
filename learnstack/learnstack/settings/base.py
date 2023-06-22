@@ -40,11 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'youtubeapp',
-    'udemyapp',
-    'Dashboardapp',
-    'djongo'
-    
+    'sites',
+    'djongo', 
 ]
 
 X_FRAME_OPTIONS = "SAMEORIGIN"
