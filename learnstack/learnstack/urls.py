@@ -16,11 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path , include
-from Dashboardapp import views
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',views.frontpage, name='home'),
-    path('youtubeapp/',include('youtubeapp.urls')),
-    path('udemyapp/',include('udemyapp.urls'))
+    path('',include('sites.urls')),
 ]

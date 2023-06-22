@@ -42,16 +42,19 @@
                 <h1 class="text-light"><a href="index.html"><span>LEARNSTACK</span></a></h1>
             </div>
 
-            <div class="search-bar">
-                <input type="text" id="searchInput" placeholder="Search courses...">
-                <select id="categoryFilter" style="background-color: aliceblue;">
-                    <option value="">All Categories</option>
-                    <option value="development">YouTube</option>
-                    <option value="design">Udemy</option>
-                    <!-- Add more category options as needed -->
-                </select>
-                <button id="searchButton" class="btn btn-primary">Search</button>
-            </div>
+            <form method="POST" action="{% url 'search_results' %}">
+                {% csrf_token %}
+                <div class="search-bar">
+                    <input type="text" id="searchInput" placeholder="Search courses...">
+                    <select id="categoryFilter" name="category" style="background-color: aliceblue;">
+                        <option value="categories">All Categories</option>
+                        <option value="youtube">YouTube</option>
+                        <option value="udemy">Udemy</option>
+                        <!-- Add more category options as needed -->
+                    </select>
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </form>
     
             <nav id="navbar" class="navbar">
                 <ul>
