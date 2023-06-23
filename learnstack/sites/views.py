@@ -3,8 +3,7 @@ from django.shortcuts import render
 from learnstack.settings.base import UDEMY_ACCESS_TOKEN, YOUTUBE_API_KEY
 from django.views.decorators.csrf import csrf_exempt
 from googleapiclient.discovery import build
-from sites.models import SearchQuery, YouTubeVideo
-
+from sites.models import SearchQuery, UdemyCourse, YouTubeVideo
 
 
 def frontpage(request):
@@ -14,9 +13,9 @@ def frontpage(request):
 @csrf_exempt
 def search_results(request):
     if request.method == 'POST':
-        breakpoint()
+        # breakpoint()
         selected_category = request.POST.get('category')
-        query = request.POST.get('searchinput') 
+        query = request.POST.get('search_input')
 
         if selected_category == 'youtube':
             # Save the search query in the database
@@ -51,6 +50,7 @@ def search_results(request):
         
 
         elif selected_category == 'udemy':
+            breakpoint()
             access_token = UDEMY_ACCESS_TOKEN
             search_url = f'https://www.udemy.com/api-2.0/courses/?search={query}&page_size=15'
             headers = {'Authorization': f'Bearer {access_token}'}
@@ -58,15 +58,17 @@ def search_results(request):
             if   search_response.status_code == 200:
                 results = []
                 api_results = search_response.json().get('results')
+                UdemyCourse.objects.all().delete()
                 for api_result in api_results:
                     title = api_result.get('title')
-                    description = api_result.get('description')
+                    price = api_result.get('price')
                     thumbnail = api_result.get('image_480x270')
                     url = api_result.get('url')
+                    course = UdemyCourse.objects.create(title=title,thumbnail=thumbnail, link=url, price=price)
 
                     result = {  
                         'title': title,
-                        'description': description,
+                        'price' : price,
                         'thumbnail': thumbnail,
                         'url': url,
                     }

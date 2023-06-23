@@ -1,3 +1,4 @@
+<!-- myapp/templates/myapp/search.html -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,21 +23,22 @@
 </head>
 <body>
     <h1>Search Results</h1>
-    {% for results in results %}
+    {% for result in results %}
         <div class="video-block">
-            <img class="thumbnail" src="{{ results.thumbnail_url }}" alt="Video Thumbnail">
+            <img class="thumbnail" src="{{ result.thumbnail }}" alt="Video Thumbnail">
             <div class="details">
-                <h2>{{ results.title }}</h2>
-                <p>{{ results.description }}</p>
-                <a href="https://www.udemy.com{{results.url}}" target="_blank">Watch on Udemy</a>
+                <h2>{{ result.title }}</h2>
+                <p>{{ result.price }}</p>
+                <a href="https://www.udemy.com{{ result.url }}">Watch on Udemy</a>
             </div>
         </div>
     {% endfor %}
-
-
 </body>
-
 </html>
+
+
+
+
 
 
 
