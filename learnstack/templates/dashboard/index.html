@@ -45,7 +45,7 @@
             <form method="POST" action="{% url 'search_results' %}">
                 {% csrf_token %}
                 <div class="search-bar">
-                    <input type="text" id="searchInput" placeholder="Search courses...">
+                    <input type="text" id="searchInput" name="search_input" placeholder="Search courses...">
                     <select id="categoryFilter" name="category" style="background-color: aliceblue;">
                         <option value="categories">All Categories</option>
                         <option value="youtube">YouTube</option>
