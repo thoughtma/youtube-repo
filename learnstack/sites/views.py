@@ -13,15 +13,11 @@ def frontpage(request):
 @csrf_exempt
 def search_results(request):
     if request.method == 'POST':
-        # breakpoint()
-        selected_category = request.POST.get('category')
-        query = request.POST.get('search_input')
+        selected_category = request.POST.get('select_category')
+        query = request.POST.get('serach_input')
 
         if selected_category == 'youtube':
-            # Save the search query in the database
             SearchQuery.objects.create(query=query)
-
-            # Call the YouTube API to fetch search results
             youtube = build('youtube', 'v3', developerKey=YOUTUBE_API_KEY)
             search_response = youtube.search().list(
                 q=query,
@@ -29,10 +25,8 @@ def search_results(request):
                 maxResults=15
             ).execute()
 
-            # Clear existing video data from the database
             YouTubeVideo.objects.all().delete()
 
-            # Store the search results in the database
             for search_result in search_response.get('items', []):
                 video_id = search_result.get('id', {}).get('videoId', '')
                 title = search_result.get('snippet', {}).get('title', '')
@@ -50,7 +44,6 @@ def search_results(request):
         
 
         elif selected_category == 'udemy':
-            breakpoint()
             access_token = UDEMY_ACCESS_TOKEN
             search_url = f'https://www.udemy.com/api-2.0/courses/?search={query}&page_size=15'
             headers = {'Authorization': f'Bearer {access_token}'}
@@ -64,7 +57,7 @@ def search_results(request):
                     price = api_result.get('price')
                     thumbnail = api_result.get('image_480x270')
                     url = api_result.get('url')
-                    course = UdemyCourse.objects.create(title=title,thumbnail=thumbnail, link=url, price=price)
+                    UdemyCourse.objects.create(title=title,thumbnail=thumbnail, link=url, price=price)
 
                     result = {  
                         'title': title,
