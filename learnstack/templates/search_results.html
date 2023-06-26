@@ -1,44 +1,104 @@
+
+
+
 <!-- myapp/templates/myapp/search.html -->
+
+
 <!DOCTYPE html>
 <html>
 <head>
+    
     <title>Search Results</title>
     <style>
-        .video-block {
+        .video-card {
             display: flex;
-            align-items: center;
             margin-bottom: 20px;
         }
 
-        .thumbnail {
-            width: 120px;
-            height: 90px;
-            margin-right: 10px;
+        .video-thumbnail {
+            flex-shrink: 0;
+            width: 246px;
+            height: 138px;
+            overflow: hidden;
         }
 
-        .details {
+        .video-thumbnail img {
+            width: 100%;
+            height: auto;
+        }
+
+        .video-details {
             flex-grow: 1;
+            margin-left: 12px;
+        }
+
+        .title {
+            margin-top: 0;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .description {
+            background-color: #f9f9f9;
+            padding: 10px;
+            color: #666;
+        }
+
+        .watch-link a {
+            display: inline-block;
+            margin-top: 10px;
+            color: #1a73e8;
+            text-decoration: none;
+        }
+
+        .watch-link a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
     <h1>Search Results</h1>
     {% for result in results %}
-        <div class="video-block">
-            <img class="thumbnail" src="{{ result.thumbnail }}" alt="Video Thumbnail">
-            <div class="details">
-                <h2>{{ result.title }}</h2>
-                <p>{{ result.price }}</p>
-                <a href="https://www.udemy.com{{ result.url }}">Watch on Udemy</a>
+        {% if result.platform == 'YouTube' %}
+            <div class="video-card">
+                <div class="video-thumbnail">
+                    <img src="{{ result.thumbnail_url }}" alt="Video Thumbnail">
+                </div>
+                <div class="video-details">
+                    <div class="title">
+                        <h2>{{ result.title }}</h2>
+                    </div>
+                    <div class="description">
+                        <p>{{ result.description }}</p>
+                    </div>
+                    <div class="watch-link">
+                        <a href="https://www.youtube.com/watch?v={{ result.video_id }}" target="_blank">Watch on YouTube</a>
+                    </div>
+                </div>
             </div>
-        </div>
+            
+        {% elif result.platform == 'Udemy' %}
+            <div class="video-card">
+                <div class="video-thumbnail">
+                    <img src="{{ result.thumbnail }}" alt="Video Thumbnail">
+                </div>
+                <div class="video-details">
+                    <div class="title">
+                        <h2>{{ result.title }}</h2>
+                    </div>
+                    <div class="price">
+                        <p>{{ result.price }}</p>
+                    </div>
+                    <div class="watch-link">
+                        <a href="https://www.udemy.com{{ result.url }}" target="_blank">Watch on Udemy</a>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
     {% endfor %}
+    
+
 </body>
 </html>
-
-
-
-
-
-
 

@@ -11,17 +11,18 @@ def frontpage(request):
 
 
 @csrf_exempt
+
 def search_results(request):
     if request.method == 'POST':
-        # breakpoint()
         selected_category = request.POST.get('category')
         query = request.POST.get('search_input')
-
-        if selected_category == 'youtube':
-            # Save the search query in the database
+        results = []
+        
+        if selected_category in ['youtube', 'categories']:
+           
             SearchQuery.objects.create(query=query)
 
-            # Call the YouTube API to fetch search results
+            
             youtube = build('youtube', 'v3', developerKey=YOUTUBE_API_KEY)
             search_response = youtube.search().list(
                 q=query,
@@ -29,54 +30,54 @@ def search_results(request):
                 maxResults=15
             ).execute()
 
-            # Clear existing video data from the database
-            YouTubeVideo.objects.all().delete()
-
-            # Store the search results in the database
+            
             for search_result in search_response.get('items', []):
                 video_id = search_result.get('id', {}).get('videoId', '')
                 title = search_result.get('snippet', {}).get('title', '')
                 description = search_result.get('snippet', {}).get('description', '')
                 thumbnail_url = search_result.get('snippet', {}).get('thumbnails', {}).get('default', {}).get('url', '')
-                YouTubeVideo.objects.create(
-                    video_id=video_id,
-                    title=title,
-                    description=description,
-                    thumbnail_url=thumbnail_url
-                )
+                result = {
+                    'platform': 'YouTube',
+                    'video_id': video_id,
+                    'title': title,
+                    'description': description,
+                    'thumbnail_url': thumbnail_url
+                }
+                results.append(result)
 
-            videos = YouTubeVideo.objects.all()
-            return render(request, 'youtube_result.html', {'videos': videos})
-        
-
-        elif selected_category == 'udemy':
-            breakpoint()
+        if selected_category in ['udemy', 'categories']:
+            
             access_token = UDEMY_ACCESS_TOKEN
             search_url = f'https://www.udemy.com/api-2.0/courses/?search={query}&page_size=15'
             headers = {'Authorization': f'Bearer {access_token}'}
             search_response = requests.get(search_url, headers=headers)
-            if   search_response.status_code == 200:
-                results = []
+            if search_response.status_code == 200:
                 api_results = search_response.json().get('results')
-                UdemyCourse.objects.all().delete()
                 for api_result in api_results:
                     title = api_result.get('title')
                     price = api_result.get('price')
                     thumbnail = api_result.get('image_480x270')
                     url = api_result.get('url')
-                    course = UdemyCourse.objects.create(title=title,thumbnail=thumbnail, link=url, price=price)
-
-                    result = {  
+                    result = {
+                        'platform': 'Udemy',
                         'title': title,
-                        'price' : price,
+                        'price': price,
                         'thumbnail': thumbnail,
-                        'url': url,
+                        'url': url
                     }
                     results.append(result)
 
-                return render(request, 'search_results.html', {'results': results})
+     
 
-            return render(request, 'error.html', {'error_message': 'An error occurred.'})
+       
+
+        return render(request, 'search_results.html', {'results': results})
+
+    return render(request, 'error.html', {'error_message': 'Invalid request method.'})
+
+            
+        
+        
 
 
 
