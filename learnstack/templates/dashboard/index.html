@@ -3,6 +3,16 @@
 <html lang="en">
 
 <head>
+    
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+        <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    
+        <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.5.6/css/ionicons.min.css">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -111,12 +121,54 @@
         </a>
 
         </div>
-    </section><!-- End Hero -->
+    </section><!-- End Hero --> 
 
-    <main id="main">
-
+ 
+   
+        <section id="replacement-div"  class="ftco-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="featured-carousel owl-carousel">
+                            {% for result in results %}
+                            <div class="item">
+                                <div class="work">
+                                    <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url('{{ result.thumbnail }}');">
+                                        <a href="{{ result.url }}" class="icon d-flex align-items-center justify-content-center">
+                                            <span class="ion-ios-search"></span>
+                                        </a>
+                                    </div>
+                                    <div class="text pt-3 w-100 text-center">
+                                        <h3><a href="{{ result.url }}">{{ result.title }}</a></h3>
+                                        <span>{{ result.price }}</span>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            {% endfor %}
+                            
+                        </div>
+                        
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+    
+        {% if results %}
+        <main id="main">
+            <!-- Your additional content for search results -->
+        </main>
+        {% endif %}
+    
+        <script src="{% static 'js/jquery.min.js' %}"></script>
+        <script src="{% static 'js/popper.js' %}"></script>
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+        <script src="{% static 'js/main1.js' %}"></script>
+   
         <!-- ======= Services Section ======= -->
-        <section class="services">
+        <section id="original-div" class="services">
             <div class="container">
         
                 <div class="row">
@@ -418,28 +470,25 @@
         });
     </script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-        var searchButton = document.getElementById('searchButton');
-        searchButton.addEventListener('click', performSearch);
-
-        function performSearch() {
-            var searchInput = document.getElementById('searchInput');
-            var categoryFilter = document.getElementById('categoryFilter');
-            var searchQuery = searchInput.value.trim();
-            var selectedCategory = categoryFilter.value;
-
-            if (searchQuery !== '') {
-                // Redirect to the search results page with the search query and category
-                var url = 'search.html?q=' + encodeURIComponent(searchQuery);
-                if (selectedCategory !== '') {
-                    url += '&category=' + encodeURIComponent(selectedCategory);
-                }
-                window.location.href = url;
-                }
-            }
+        $(document).ready(function() {
+          // Check if there are search results
+          var hasResults = {% if results %}true{% else %}false{% endif %};
+      
+          if (hasResults) {
+            $('#original-div').hide();
+            $('#replacement-div').fadeIn();
+          }
+      
+          $('.btn-primary').click(function() {
+            $('#original-div').hide();
+            $('#replacement-div').fadeIn();
+          });
         });
-    </script>
-
+      </script>
+      
+      
+      
+    
+    
 </body>
-
 </html>
