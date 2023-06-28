@@ -64,6 +64,7 @@
                 </select>
                 <button id="searchButton" class="btn btn-primary">Search</button>
             </div>
+            
         </form>
     
             <nav id="navbar" class="navbar">
@@ -153,6 +154,17 @@
                 </div>
                 
             </div>
+            <div id="explore-button" class="text-center mt-4" style="display: none;">
+                
+                <form method="POST" action="{% url 'udemy' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="search_input" value="{{ query }}">
+                    <button type="submit" class="explore-button">
+                        Explore More
+                        <span class="arrow"></span>
+                    </button>
+                </form>
+                
         </section>
     
         {% if results %}
@@ -486,7 +498,12 @@
         });
       </script>
       
-      
+      <script>
+        // Check if results are present
+        if ({{ results|length }} > 0) {
+            document.getElementById('explore-button').style.display = 'block';
+        }
+    </script>
       
     
     

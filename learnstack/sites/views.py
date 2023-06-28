@@ -1,5 +1,5 @@
 import requests
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from learnstack.settings.base import UDEMY_ACCESS_TOKEN, YOUTUBE_API_KEY
 from django.views.decorators.csrf import csrf_exempt
 from googleapiclient.discovery import build
@@ -67,7 +67,7 @@ def search_results(request):
                     }
                     results.append(result)
 
-                return render(request, 'udemy.html', {'results': results})
+                return render(request, 'dashboard/index.html', {'results': results})
 
             return render(request, 'error.html', {'error_message': 'An error occurred.'})
 
@@ -119,3 +119,14 @@ def search_results(request):
                     results.append(result)
 
             return render(request, 'all_categories.html', {'results': results, 'videos': videos})
+        
+
+
+
+def udemy_view(request):
+        
+    query = request.POST.get('search_input')
+    results = UdemyCourse.objects.filter(title__icontains=query)
+    return render(request, 'udemy.html', {'results': results})
+
+
