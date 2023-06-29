@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 import requests
 from django.shortcuts import render,redirect
 from learnstack.settings.base import UDEMY_ACCESS_TOKEN, YOUTUBE_API_KEY
@@ -31,7 +32,8 @@ def search_results(request):
                 video_id = search_result.get('id', {}).get('videoId', '')
                 title = search_result.get('snippet', {}).get('title', '')
                 description = search_result.get('snippet', {}).get('description', '')
-                thumbnail_url = search_result.get('snippet', {}).get('thumbnails', {}).get('default', {}).get('url', '')
+                thumbnails = search_result.get('snippet', {}).get('thumbnails', {})
+                thumbnail_url = thumbnails.get('maxres', {}).get('url', '') or thumbnails.get('high', {}).get('url', '') or thumbnails.get('default', {}).get('url', '')
                 YouTubeVideo.objects.create(
                     video_id=video_id,
                     title=title,
@@ -40,28 +42,29 @@ def search_results(request):
                 )
 
             videos = YouTubeVideo.objects.all()
-            return render(request, 'youtube_result.html', {'videos': videos})
-        
+            return render(request, 'dashboard/index.html', {'videos': videos})
 
         elif selected_category == 'udemy':
             access_token = UDEMY_ACCESS_TOKEN
             search_url = f'https://www.udemy.com/api-2.0/courses/?search={query}&page_size=15'
             headers = {'Authorization': f'Bearer {access_token}'}
             search_response = requests.get(search_url, headers=headers)
-            if   search_response.status_code == 200:
+
+            if search_response.status_code == 200:
                 results = []
                 api_results = search_response.json().get('results')
                 UdemyCourse.objects.all().delete()
+
                 for api_result in api_results:
                     title = api_result.get('title')
                     price = api_result.get('price')
                     thumbnail = api_result.get('image_480x270')
                     url = api_result.get('url')
-                    UdemyCourse.objects.create(title=title,thumbnail=thumbnail, link=url, price=price)
+                    UdemyCourse.objects.create(title=title, thumbnail=thumbnail, link=url, price=price)
 
-                    result = {  
+                    result = {
                         'title': title,
-                        'price' : price,
+                        'price': price,
                         'thumbnail': thumbnail,
                         'url': url,
                     }
@@ -114,22 +117,23 @@ def search_results(request):
                         'price' : price,
                         'thumbnail': thumbnail,
                         'url': url,
+                        'query':query
                     }
                     results.append(result)
 
 
-            return render(request, 'all_categories.html', {'results': results, 'videos': videos})
+            return render(request, 'dashboard/index.html', {'results': results, 'videos': videos, 'query':query})
+
+
+    return HttpResponse('Invalid request method')
         
-
-
 
 def udemy_view(request):
-        
     query = request.POST.get('search_input')
     results = UdemyCourse.objects.filter(title__icontains=query)
     return render(request, 'udemy.html', {'results': results})
 
-
-
-            return render(request, 'dashboard/index.html', {'results': results, 'videos': videos, 'query':query})
-
+def youtube_view(request):
+    query = request.POST.get('search_input')
+    videos = YouTubeVideo.objects.filter(title__icontains=query)
+    return render(request, 'youtube.html', {'videos': videos})
