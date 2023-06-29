@@ -69,8 +69,6 @@ def search_results(request):
 
                 return render(request, 'dashboard/index.html', {'results': results})
 
-            return render(request, 'error.html', {'error_message': 'An error occurred.'})
-
         elif selected_category == 'categories':
             SearchQuery.objects.create(query=query)
             youtube = build('youtube', 'v3', developerKey=YOUTUBE_API_KEY)
@@ -87,7 +85,8 @@ def search_results(request):
                 video_id = search_result.get('id', {}).get('videoId', '')
                 title = search_result.get('snippet', {}).get('title', '')
                 description = search_result.get('snippet', {}).get('description', '')
-                thumbnail_url = search_result.get('snippet', {}).get('thumbnails', {}).get('default', {}).get('url', '')
+                thumbnails = search_result.get('snippet', {}).get('thumbnails', {})
+                thumbnail_url = thumbnails.get('maxres', {}).get('url', '') or thumbnails.get('high', {}).get('url', '') or thumbnails.get('default', {}).get('url', '')
                 YouTubeVideo.objects.create(
                     video_id=video_id,
                     title=title,
@@ -118,6 +117,7 @@ def search_results(request):
                     }
                     results.append(result)
 
+
             return render(request, 'all_categories.html', {'results': results, 'videos': videos})
         
 
@@ -129,4 +129,7 @@ def udemy_view(request):
     results = UdemyCourse.objects.filter(title__icontains=query)
     return render(request, 'udemy.html', {'results': results})
 
+
+
+            return render(request, 'dashboard/index.html', {'results': results, 'videos': videos, 'query':query})
 
