@@ -2,7 +2,36 @@
 
 <!DOCTYPE html>
 <html lang="en">
+<style>
+    /* Button Styles */
+.explore-button {
+  display: inline-block;
+  position: relative;
+  padding: 5px 20px;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  overflow: hidden;
+}
 
+.explore-button:hover {
+  background-color: #45a049;
+}
+
+
+
+/* Adjust arrow color on hover */
+.explore-button:hover .arrow {
+  border-color: #fff;
+}
+
+</style>
 <head>
     
         <meta charset="utf-8">
@@ -42,6 +71,7 @@
     <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     
+    
     </head>
 
     <body>
@@ -65,6 +95,7 @@
                 </select>
                 <button id="searchButton" class="btn btn-primary">Search</button>
             </div>
+            
         </form>
     
             <nav id="navbar" class="navbar">
@@ -123,6 +154,63 @@
 
         </div>
     </section><!-- End Hero --> 
+
+ 
+   
+        <section id="replacement-div"  class="ftco-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="featured-carousel owl-carousel">
+                            {% for result in results %}
+                            <div class="item">
+                                <div class="work">
+                                    <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url('{{ result.thumbnail }}');">
+                                        <a href="{{ result.url }}" class="icon d-flex align-items-center justify-content-center">
+                                            <span class="ion-ios-search"></span>
+                                        </a>
+                                    </div>
+                                    <div class="text pt-3 w-100 text-center">
+                                        <h3><a href="{{ result.url }}">{{ result.title }}</a></h3>
+                                        <span>{{ result.price }}</span>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            {% endfor %}
+                            
+                        </div>
+                        
+                    </div>
+                </div>
+                
+            </div>
+            <div id="explore-button" class="text-center mt-4" style="display: none;">
+                
+                <form method="POST" action="{% url 'udemy' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="search_input" value="{{ query }}">
+                    <button type="submit" class="explore-button">
+                      Explore More
+                      <span class="arrow"></span>
+                    </button>
+                  </form>
+                  
+                
+        </section>
+    
+        {% if results %}
+        <main id="main">
+            <!-- Your additional content for search results -->
+        </main>
+        {% endif %}
+    
+        <script src="{% static 'js/jquery.min.js' %}"></script>
+        <script src="{% static 'js/popper.js' %}"></script>
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+        <script src="{% static 'js/main1.js' %}"></script>
+   
 
         <!-- ======= Services Section ======= -->
         <section id="original-div" class="services">
@@ -501,6 +589,34 @@
             });
         });
     </script>
+
+    <script>
+        $(document).ready(function() {
+          // Check if there are search results
+          var hasResults = {% if results %}true{% else %}false{% endif %};
+      
+          if (hasResults) {
+            $('#original-div').hide();
+            $('#replacement-div').fadeIn();
+          }
+      
+          $('.btn-primary').click(function() {
+            $('#original-div').hide();
+            $('#replacement-div').fadeIn();
+          });
+        });
+      </script>
+      
+      <script>
+        // Check if results are present
+        if ({{ results|length }} > 0) {
+            document.getElementById('explore-button').style.display = 'block';
+        }
+    </script>
+      
+    
+    
+
         <script>
             $(document).ready(function() {
             // Check if there are search results
@@ -520,6 +636,7 @@
             });
             });
         </script>
+
 
 </body>
 </html>
