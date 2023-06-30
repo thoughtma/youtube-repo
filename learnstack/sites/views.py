@@ -132,8 +132,14 @@ def udemy_view(request):
     query = request.POST.get('search_input')
     results = UdemyCourse.objects.filter(title__icontains=query)
     return render(request, 'udemy.html', {'results': results})
+ 
+
+
+            # return render(request, 'dashboard/index.html', {'results': results, 'videos': videos, 'query':query})
+
 
 def youtube_view(request):
     query = request.POST.get('search_input')
     videos = YouTubeVideo.objects.filter(title__icontains=query)
     return render(request, 'youtube.html', {'videos': videos})
+

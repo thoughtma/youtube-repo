@@ -14,6 +14,10 @@
         <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.5.6/css/ionicons.min.css">
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="prefetch" href="app.js">
+        <link rel="prefetch" href="path/to/resource">
+        <link rel="preload" href="{% static 'css/style.css' %}" as="style">
+        <link rel="preload" href="path/to/resource" as="resource-type">
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -150,10 +154,8 @@
             <nav id="navbar" class="navbar">
                 <ul>
                     <li><a class="active" href="/">Home</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="services.html">Services</a></li>
-                    <li><a href="blog.html">Blog</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="#bottom">About</a></li>
+                    <li><a href="#bottom">Services</a></li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav><!-- .navbar -->
@@ -204,6 +206,25 @@
         </div>
     </section><!-- End Hero --> 
 
+
+ 
+   
+     
+    
+        {% if results %}
+        <main id="main">
+            <!-- Your additional content for search results -->
+        </main>
+        {% endif %}
+    
+        <script src="{% static 'js/jquery.min.js' %}"></script>
+        <script src="{% static 'js/popper.js' %}"></script>
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+        <script src="{% static 'js/main1.js' %}"></script>
+   
+
+
         <!-- ======= Services Section ======= -->
         <section id="original-div" class="services" >
             <div class="container">
@@ -212,10 +233,19 @@
                         <div class="icon-box icon-box-pink">
                             <div class="icon"><i class="fa fa-youtube-play red-color" style="color: red;"></i></div>
                             <h4 class="title"><a href="">YouTube</a></h4>
+
+                            <p class="description">YouTube Education offers an accessible, diverse, and interactive learning experience, making education more engaging and readily available to individuals around the world.</p>
+                            <div class="search">
+                                <input type="search" class="search-box" />
+                                <span class="search-button">
+                                    <span class="search-icon"></span>
+                                </span>
+
                             <div class="overlay">
                                 <a href="https://www.youtube.com/" class="icon d-flex align-items-center justify-content-center">
                                     <span class="ion-ios-search"></span>
                                 </a>
+
                             </div>
                             <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
                         </div>
@@ -230,10 +260,19 @@
                                 </svg>
                             </div>
                             <h4 class="title"><a href="">Udemy</a></h4>
+
+                            <p class="description">Udemy is a popular online learning platform that provides learners with a diverse selection of courses, flexible learning options, and access to expert instructors. </p>
+                            <div class="search">
+                                <input type="search" class="search-box" />
+                                <span class="search-button">
+                                    <span class="search-icon"></span>
+                                </span>
+
                             <div class="overlay">
                                 <a href="https://www.udemy.com/" class="icon d-flex align-items-center justify-content-center">
                                     <span class="ion-ios-search"></span>
                                 </a>
+
                             </div>
                             <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
                         </div>
@@ -253,18 +292,28 @@
                                 </svg>
                             </div>
                             <h4 class="title"><a href="">Our Blogs</a></h4>
+
+                            <p class="description">Learnstach is a valuable blog that provides comprehensive and up-to-date information on learning technologies. </p>
+
                             <div class="overlay">
                                 <a href="#" class="icon d-flex align-items-center justify-content-center">
                                     <p style="color: black;">Coming Soon</p>
                                 </a>
                             </div>
                             <p class="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+
                         </div>
                     </div>
                 </div>
             </div>
         </section>
         <!-- End Services Section -->
+
+
+           <section id="replacement-div"  class="ftco-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
 
         <section id="replacement-div" >
             <div class="container">
@@ -276,14 +325,20 @@
                         <div id="udemy-div" style="display: none;">
                             <h2 style="text-align: left; font-family: serif;">Udemy:</h2>
                         </div>
+
                         <div class="featured-carousel owl-carousel">
                             {% for result in results %}
                             <div class="item">
                                 <div class="work">
+
+                                    <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url('{{ result.thumbnail }}');">
+                                        <a href="{{ result.url }}" class="icon d-flex align-items-center justify-content-center">
+
                                     <div class="img d-flex align-items-center justify-content-center rounded"
                                         style="background-image: url('{{ result.thumbnail }}');">
                                         <a href="https://www.udemy.com{{ result.url }}"
                                             class="icon d-flex align-items-center justify-content-center">
+
                                             <span class="ion-ios-search"></span>
                                         </a>
                                     </div>
@@ -313,9 +368,28 @@
                     </div>
                 </div>
             </div>
+
+            <div id="explore-button-container" class="text-center mt-4">
+                <form id="explore-form" method="POST" action="{% url 'udemy' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="search_input" value="{{ query }}">
+                    <button id="explore-button" type="submit" class="explore-button">
+                        Explore More
+                        <span class="arrow"></span>
+                    </button>
+                </form>
+            </div>
+            
+                  
+                
+        </section>
+            </div>
+            
+
         </section>
         
         <section id="replacement-div2" >
+
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
@@ -372,22 +446,22 @@
 
             <div class="row">
             <div class="col-lg-6 video-box">
-                <img src="{% static 'assets/img/why-us.jpg' %}" class="img-fluid" alt="">
-                <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="venobox play-btn mb-4" data-vbtype="video" data-autoplay="true"></a>
+                <img src="{% static 'assets/img/Screenshot from 2023-06-30 11-37-15.png' %}" class="img-fluid" alt="">
+                <a href="{% static 'assets/img/0J50T70G0IYWAPU5.mp4' %}" class="venobox play-btn mb-4" data-vbtype="video" data-autoplay="true"></a>
             </div>
 
             <div class="col-lg-6 d-flex flex-column justify-content-center p-5">
 
                 <div class="icon-box">
-                <div class="icon"><i class="bx bx-fingerprint"></i></div>
-                <h4 class="title"><a href="">Lorem Ipsum</a></h4>
-                <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
+                <div class="icon"><i class='fa fa-youtube-play' style='color: red'></i></div>
+                <h4 class="title"><a href="">You Tube</a></h4>
+                <p class="description" >YouTube offers a vast range of educational content covering various subjects and topics. Whether you're interested in science, mathematics, history, language learning, or even personal development, you can find educational videos and channels catering to your interests.</p>
                 </div>
 
                 <div class="icon-box">
-                <div class="icon"><i class="bx bx-gift"></i></div>
-                <h4 class="title"><a href="">Nemo Enim</a></h4>
-                <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque</p>
+                <div class="icon"><svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Udemy</title><path d="M12 0L5.81 3.573v3.574l6.189-3.574 6.191 3.574V3.573zM5.81 10.148v8.144c0 1.85.589 3.243 1.741 4.234S10.177 24 11.973 24s3.269-.482 4.448-1.474c1.179-.991 1.768-2.439 1.768-4.314v-8.064h-3.242v7.85c0 2.036-1.509 3.055-2.948 3.055-1.428 0-2.947-.991-2.947-3.027v-7.878z"/></svg></div>
+                <h4 class="title"><a href="">Udemy</a></h4>
+                <p class="description">Udemy courses are created and taught by instructors who are experts in their respective fields. These instructors bring their knowledge, experience, and expertise to deliver high-quality educational content.</p>
                 </div>
 
             </div>
@@ -402,78 +476,48 @@
 
             <div class="section-title">
             <h2>Features</h2>
-            <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+            <p>Learn-Stack serves as an educational hub, bringing together the vast educational content available on YouTube and Udemy, and offering users a convenient platform to access, learn, and grow.</p>
             </div>
 
             <div class="row" data-aos="fade-up">
             <div class="col-md-5">
-                <img src="{% static 'assets/img/features-1.svg' %}" class="img-fluid" alt="">
+                <img src="{% static 'assets/img/youtube-4740743_1280.jpg' %}" class="img-fluid" alt="">
             </div>
             <div class="col-md-7 pt-4">
-                <h3>Voluptatem dignissimos provident quasi corporis voluptates sit assumenda.</h3>
+                <h3>You Tube</h3>
                 <p class="fst-italic">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                magna aliqua.
+                    YouTube Education accommodates a vast array of subjects, from traditional academic disciplines like mathematics, science, history, and literature, to practical skills like cooking, DIY projects, and language learning. This diverse range of topics caters to a broad audience and allows individuals to explore their interests and expand their knowledge in different areas.
                 </p>
-                <ul>
-                <li><i class="bi bi-check"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-                <li><i class="bi bi-check"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
-                </ul>
+             
             </div>
             </div>
 
             <div class="row" data-aos="fade-up">
             <div class="col-md-5 order-1 order-md-2">
-                <img src="{% static 'assets/img/features-2.svg' %}" class="img-fluid" alt="">
+                <img src="{% static 'assets/img/Udemy-Logo.png' %}" class="img-fluid" alt="">
             </div>
             <div class="col-md-7 pt-5 order-2 order-md-1">
-                <h3>Corporis temporibus maiores provident</h3>
+                <h3>Udemy</h3>
                 <p class="fst-italic">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                magna aliqua.
+                    Udemy courses cover a vast array of topics, including technology, business, arts and crafts, personal development, health and fitness, languages, and much more. The platform caters to learners of all levels, from beginners to advanced professionals, and offers both video-based lectures and supplementary materials.
                 </p>
-                <p>
-                Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                culpa qui officia deserunt mollit anim id est laborum
-                </p>
+               
             </div>
             </div>
 
             <div class="row" data-aos="fade-up">
             <div class="col-md-5">
-                <img src="{% static 'assets/img/features-3.svg' %}" class="img-fluid" alt="">
+                <img src="{% static 'assets/img/1027480_7413.jpg' %}" class="img-fluid" alt="" style="margin-top: 50px;">
+
             </div>
             <div class="col-md-7 pt-5">
-                <h3>Sunt consequatur ad ut est nulla consectetur reiciendis animi voluptas</h3>
-                <p>Cupiditate placeat cupiditate placeat est ipsam culpa. Delectus quia minima quod. Sunt saepe odit aut quia voluptatem hic voluptas dolor doloremque.</p>
-                <ul>
-                <li><i class="bi bi-check"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-                <li><i class="bi bi-check"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
-                <li><i class="bi bi-check"></i> Facilis ut et voluptatem aperiam. Autem soluta ad fugiat.</li>
-                </ul>
+                <h3>Our Blogs</h3>
+                <p>Welcome to our education blog, a place dedicated to fostering learning, growth, and exploration. We're passionate about sharing valuable insights, practical tips, and inspiring stories to help students, educators, and lifelong learners thrive in their educational journeys. From study strategies and career guidance to the latest trends in education, our blog covers a wide range of topics to support your pursuit of knowledge and personal development. Join us as we dive into the world of education, uncovering new perspectives, and empowering you to unlock your full potential.</p>
+                
             </div>
             </div>
 
-            <div class="row" data-aos="fade-up">
-            <div class="col-md-5 order-1 order-md-2">
-                <img src="{% static 'assets/img/features-4.svg' %}" class="img-fluid" alt="">
-            </div>
-            <div class="col-md-7 pt-5 order-2 order-md-1">
-                <h3>Quas et necessitatibus eaque impedit ipsum animi consequatur incidunt in</h3>
-                <p class="fst-italic">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                magna aliqua.
-                </p>
-                <p>
-                Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                culpa qui officia deserunt mollit anim id est laborum
-                </p>
-            </div>
-            </div>
-
-        </div>
+           
         </section><!-- End Features Section -->
 
     </main><!-- End #main -->
@@ -486,18 +530,16 @@
             <div class="row">
             <div class="col-lg-6">
                 <h4>Our Newsletter</h4>
-                <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
+                <p>We're excited to bring you the latest updates and highlights from Learnstack, your go-to course search site.</p>
             </div>
             <div class="col-lg-6">
-                <form action="" method="post">
-                <input type="email" name="email"><input type="submit" value="Subscribe">
-                </form>
+                
             </div>
             </div>
         </div>
         </div>
 
-        <div class="footer-top">
+        <div class="footer-top" id="bottom">
         <div class="container">
             <div class="row">
 
@@ -518,7 +560,6 @@
                 <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
                 <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
                 <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
-                <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
                 <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
                 </ul>
             </div>
@@ -526,24 +567,19 @@
             <div class="col-lg-3 col-md-6 footer-contact">
                 <h4>Contact Us</h4>
                 <p>
-                A108 Adam Street <br>
-                New York, NY 535022<br>
-                United States <br><br>
-                <strong>Phone:</strong> +1 5589 55488 55<br>
-                <strong>Email:</strong> info@example.com<br>
+                Surya Dev Nagar, Indore   <br>
+                Madhya Pradesh, 452009<br>
+                India <br><br>
+                <strong>Phone:</strong> +91-74155-97914<br>
+                <strong>Email:</strong> Deepakdarkie@gmail.com<br>
                 </p>
 
             </div>
 
             <div class="col-lg-3 col-md-6 footer-info">
-                <h3>About Moderna</h3>
-                <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus.</p>
-                <div class="social-links mt-3">
-                <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-                <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-                <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-                <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
-                </div>
+                <h3>About LearnStack</h3>
+                <p>Learn-Stack serves as an educational hub, bringing together the vast educational content available on YouTube and Udemy, and offering users a convenient platform to access, learn, and grow.</p>
+               
             </div>
 
             </div>
@@ -552,14 +588,14 @@
 
         <div class="container">
         <div class="copyright">
-            &copy; Copyright <strong><span>Moderna</span></strong>. All Rights Reserved
+            &copy; Copyright <strong><span>LearnStack</span></strong>. All Rights Reserved
         </div>
         <div class="credits">
             <!-- All the links in the footer should remain intact. -->
             <!-- You can delete the links only if you purchased the pro version. -->
             <!-- Licensing information: https://bootstrapmade.com/license/ -->
             <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/free-bootstrap-template-corporate-moderna/ -->
-            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+            Designed by <a href="#">Learn Stack devs</a>
         </div>
         </div>
     </footer><!-- End Footer -->
@@ -585,6 +621,35 @@
             });
         });
     </script>
+
+    <script>
+        $(document).ready(function() {
+            // Check if there are search results
+            var hasResults = {% if results %}true{% else %}false{% endif %};
+        
+            if (hasResults) {
+                $('#original-div').hide();
+                $('#output-heading').show();
+                $('#udemy-div').show();
+                $('#youtube-div').show();
+                $('#replacement-div').css('display', 'block');
+                showExploreButton();
+            } else {
+                $('#replacement-div').css('display', 'none');
+                hideExploreButton();
+            }
+        
+            function showExploreButton() {
+                $('#explore-button-container').removeClass('hidden');
+            }
+        
+            function hideExploreButton() {
+                $('#explore-button-container').addClass('hidden');
+            }
+        });    
+    </script>   
+      
+
         <script>
                 $(document).ready(function() {
                 var hasResults = {% if results %}true{% else %}false{% endif %};
@@ -634,5 +699,6 @@
                 document.getElementById('explore-youtube-button').style.display = 'block';
             }
         </script>
+
 </body>
 </html>
