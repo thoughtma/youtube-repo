@@ -328,19 +328,6 @@
                 </div>
             </div>
         
-            <div id="explore-button-container" class="text-center mt-4">
-                <form id="explore-form" method="POST" action="{% url 'udemy' %}">
-                    {% csrf_token %}
-                    <input type="hidden" name="search_input" value="{{ query }}">
-                    <button id="explore-button" type="submit" class="explore-button">
-                        Explore More
-                        <span class="arrow"></span>
-                    </button>
-                </form>
-            </div>
-        </section>
-        
-        
         <section id="replacement-div2" >
 
             <div class="container">
