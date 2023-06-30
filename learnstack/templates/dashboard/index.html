@@ -14,10 +14,6 @@
         <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.5.6/css/ionicons.min.css">
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
-        <link rel="prefetch" href="app.js">
-        <link rel="prefetch" href="path/to/resource">
-        <link rel="preload" href="{% static 'css/style.css' %}" as="style">
-        <link rel="preload" href="path/to/resource" as="resource-type">
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -216,14 +212,6 @@
             <!-- Your additional content for search results -->
         </main>
         {% endif %}
-    
-        <script src="{% static 'js/jquery.min.js' %}"></script>
-        <script src="{% static 'js/popper.js' %}"></script>
-        <script src="{% static 'js/bootstrap.min.js' %}"></script>
-        <script src="{% static 'js/owl.carousel.min.js' %}"></script>
-        <script src="{% static 'js/main1.js' %}"></script>
-   
-
 
         <!-- ======= Services Section ======= -->
         <section id="original-div" class="services">
@@ -291,13 +279,7 @@
         
         <!-- End Services Section -->
 
-
-           <section id="replacement-div"  class="ftco-section">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-
-        <section id="replacement-div" >
+        <section id="replacement-div">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
@@ -307,20 +289,15 @@
                         <div id="udemy-div" style="display: none;">
                             <h2 style="text-align: left; font-family: serif;">Udemy:</h2>
                         </div>
-
+        
                         <div class="featured-carousel owl-carousel">
                             {% for result in results %}
                             <div class="item">
                                 <div class="work">
-
-                                    <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url('{{ result.thumbnail }}');">
-                                        <a href="{{ result.url }}" class="icon d-flex align-items-center justify-content-center">
-
                                     <div class="img d-flex align-items-center justify-content-center rounded"
                                         style="background-image: url('{{ result.thumbnail }}');">
                                         <a href="https://www.udemy.com{{ result.url }}"
                                             class="icon d-flex align-items-center justify-content-center">
-
                                             <span class="ion-ios-search"></span>
                                         </a>
                                     </div>
@@ -332,7 +309,7 @@
                             </div>
                             {% endfor %}
                         </div>
-                        
+        
                         {% if results %}
                         <div id="explore-udemy-button" class="text-center mt-4">
                             <div style="display: flex; justify-content: center;">
@@ -350,7 +327,7 @@
                     </div>
                 </div>
             </div>
-
+        
             <div id="explore-button-container" class="text-center mt-4">
                 <form id="explore-form" method="POST" action="{% url 'udemy' %}">
                     {% csrf_token %}
@@ -361,14 +338,8 @@
                     </button>
                 </form>
             </div>
-            
-                  
-                
         </section>
-            </div>
-            
-
-        </section>
+        
         
         <section id="replacement-div2" >
 
@@ -596,6 +567,12 @@
 
     <!-- Template Main JS File -->
     <script src="{% static 'assets/js/main1.js' %}"></script>
+        
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/popper.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
     <script>
         $(document).ready(function() {
             $('.search-button').click(function() {
