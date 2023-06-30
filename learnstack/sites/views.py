@@ -131,5 +131,5 @@ def udemy_view(request):
 
 
 
-            return render(request, 'dashboard/index.html', {'results': results, 'videos': videos, 'query':query})
+            # return render(request, 'dashboard/index.html', {'results': results, 'videos': videos, 'query':query})
 
