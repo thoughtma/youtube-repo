@@ -81,7 +81,7 @@ def search_udemy_courses(query):
 @csrf_exempt
 def search_results(request):
     if request.method == 'POST':
-        breakpoint()
+        
         selected_category = request.POST.get('select_category')
         query = request.POST.get('search_input')
 
