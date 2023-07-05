@@ -1,94 +1,13 @@
 from django.http import HttpResponse
-import requests
 from django.shortcuts import render
-from learnstack.settings.base import UDEMY_ACCESS_TOKEN, YOUTUBE_API_KEY
 from django.views.decorators.csrf import csrf_exempt
-from googleapiclient.discovery import build
 from sites.models import SearchQuery, UdemyCourse, YouTubeVideo
-from django.core.cache import cache
-YOUTUBE_MAX_RESULTS = 15
-UDEMY_PAGE_SIZE = 15
+from sites.utils import search_youtube_videos, search_udemy_courses
+import threading
+
 
 def frontpage(request):
     return render(request, 'dashboard/index.html')
-
-
-def search_youtube_videos(query):
-    cache_key = f"youtube_videos_{query}"
-    videos = cache.get(cache_key)
-
-    if videos is None:
-        youtube = build('youtube', 'v3', developerKey=YOUTUBE_API_KEY)
-        search_response = youtube.search().list(
-            q=query,
-            part='snippet',
-            maxResults=YOUTUBE_MAX_RESULTS
-        ).execute()
-
-        YouTubeVideo.objects.all().delete()
-
-        for search_result in search_response.get('items', []):
-            video_id = search_result.get('id', {}).get('videoId', '')
-            title = search_result.get('snippet', {}).get('title', '')
-            description = search_result.get('snippet', {}).get('description', '')
-            thumbnails = search_result.get('snippet', {}).get('thumbnails', {})
-            thumbnail_url = (
-                thumbnails.get('maxres', {}).get('url', '') or
-                thumbnails.get('high', {}).get('url', '') or
-                thumbnails.get('default', {}).get('url', '')
-            )
-            YouTubeVideo.objects.create(
-                video_id=video_id,
-                title=title,
-                description=description,
-                thumbnail_url=thumbnail_url
-            )
-
-        videos = YouTubeVideo.objects.all()
-        cache.set(cache_key, videos, 60 * 60 * 24)  # Cache for 15 minutes
-
-    return videos
-
-
-def search_udemy_courses(query):
-    cache_key = f"udemy_courses_{query}"
-    results = cache.get(cache_key)
-
-    if results is None:
-        access_token = UDEMY_ACCESS_TOKEN
-        search_url = f'https://www.udemy.com/api-2.0/courses/?search={query}&page_size={UDEMY_PAGE_SIZE}'
-        headers = {'Authorization': f'Bearer {access_token}'}
-        search_response = requests.get(search_url, headers=headers)
-
-        if search_response.status_code == 200:
-            api_results = search_response.json().get('results')
-            UdemyCourse.objects.all().delete()
-
-            results = []
-            for api_result in api_results:
-                title = api_result.get('title')
-                price = api_result.get('price')
-                thumbnail = api_result.get('image_480x270')
-                url = api_result.get('url')
-                UdemyCourse.objects.create(
-                    title=title,
-                    thumbnail=thumbnail,
-                    link=url,
-                    price=price
-                )
-
-                result = {
-                    'title': title,
-                    'price': price,
-                    'thumbnail': thumbnail,
-                    'url': url,
-                }
-                results.append(result)
-
-            cache.set(cache_key, results, 60 * 60 * 24)  # Cache for one day (24 hours)
-
-
-    return results
 
 
 @csrf_exempt
@@ -99,31 +18,33 @@ def search_results(request):
 
         if selected_category == 'youtube':
             SearchQuery.objects.create(query=query)
-            videos = search_youtube_videos(query)
+
+            youtube_thread = threading.Thread(target=search_youtube_videos, args=(query,))
+            youtube_thread.start()
+
+            videos = YouTubeVideo.objects.all()
             return render(request, 'dashboard/index.html', {'videos': videos})
 
         elif selected_category == 'udemy':
             SearchQuery.objects.create(query=query)
-            results = search_udemy_courses(query)
+
+            udemy_thread = threading.Thread(target=search_udemy_courses, args=(query,))
+            udemy_thread.start()
+
+            results = UdemyCourse.objects.all()
             return render(request, 'dashboard/index.html', {'results': results})
 
         elif selected_category == 'categories':
             SearchQuery.objects.create(query=query)
 
-            # Search YouTube videos and cache the results
-            cache_key_videos = f"youtube_videos_{query}"
-            videos = cache.get(cache_key_videos)
-            if videos is None:
-                videos = search_youtube_videos(query)
-                cache.set(cache_key_videos, videos, 60 * 60 * 24)  # Cache for 15 minutes
+            youtube_thread = threading.Thread(target=search_youtube_videos, args=(query,))
+            udemy_thread = threading.Thread(target=search_udemy_courses, args=(query,))
 
-            # Search Udemy courses and cache the results
-            cache_key_courses = f"udemy_courses_{query}"
-            results = cache.get(cache_key_courses)
-            if results is None:
-                results = search_udemy_courses(query)
-                cache.set(cache_key_courses, videos, 60 * 60 * 24)  # Cache for one day (24 hours)
+            youtube_thread.start()
+            udemy_thread.start()
 
+            videos = YouTubeVideo.objects.all()
+            results = UdemyCourse.objects.all()
             return render(request, 'dashboard/index.html', {'results': results, 'videos': videos, 'query': query})
 
     return HttpResponse('Invalid request method')
