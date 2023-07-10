@@ -28,7 +28,7 @@ def search_results(request):
                 youtube_thread.start()
                 youtube_thread.join()
                 videos = YouTubeVideo.objects.filter(search_query=new_search_query)
-            return render(request, 'dashboard/index.html', {'videos': videos})
+            return render(request, 'dashboard/index.html', {'videos': videos,'query': query})
 
         elif selected_category == 'udemy':
             udemy_courses_exist = UdemyCourse.objects.filter(search_query__query=query).exists()
@@ -42,10 +42,9 @@ def search_results(request):
                 udemy_thread.join()
 
                 results = UdemyCourse.objects.filter(search_query=new_search_query_udemy)
-            return render(request, 'dashboard/index.html', {'results': results})
+            return render(request, 'dashboard/index.html', {'results': results, 'query': query})
 
         elif selected_category == 'categories':
-            breakpoint()
             youtube_videos_exist = YouTubeVideo.objects.filter(search_query__query=query).exists()
             udemy_courses_exist = UdemyCourse.objects.filter(search_query__query=query).exists()
 
@@ -71,11 +70,11 @@ def search_results(request):
 
 def udemy_view(request):
     query = request.POST.get('search_input')
-    results = UdemyCourse.objects.filter(title__icontains=query)
+    results = UdemyCourse.objects.filter(search_query__query=query)
     return render(request, 'udemy.html', {'results': results})
 
 
 def youtube_view(request):
     query = request.POST.get('search_input')
-    videos = YouTubeVideo.objects.filter(title__icontains=query)
+    videos = YouTubeVideo.objects.filter(search_query__query=query)
     return render(request, 'youtube.html', {'videos': videos})
