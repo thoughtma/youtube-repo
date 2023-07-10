@@ -4,8 +4,8 @@ from learnstack.settings.base import UDEMY_ACCESS_TOKEN, YOUTUBE_API_KEY
 from sites.models import UdemyCourse, YouTubeVideo
 
 
-YOUTUBE_MAX_RESULTS = 20
-UDEMY_PAGE_SIZE = 20
+YOUTUBE_MAX_RESULTS = 24
+UDEMY_PAGE_SIZE = 24
 
 
 def search_youtube_videos(query, search_query):
