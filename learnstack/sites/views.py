@@ -1,10 +1,10 @@
+import threading
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from sites.models import SearchQuery, UdemyCourse, YouTubeVideo
 from sites.utils import search_youtube_videos, search_udemy_courses
-import threading
-from datetime import datetime, timedelta
+from datetime import timedelta
 from django.utils import timezone
 from django.core.paginator import Paginator
 
@@ -68,20 +68,27 @@ def search_results(request):
     return HttpResponse('Invalid request method')
 
 
+
 def udemy_view(request):
-    query = request.POST.get('search_input')
+    if request.method == 'POST':
+        query = request.POST.get('search_input')
+    else:
+        query = request.GET.get('search_input')
     results = UdemyCourse.objects.filter(search_query__query=query)
-    paginator = Paginator(results, per_page=8)
+    paginator = Paginator(results, 5)
     page_number = request.GET.get('page')
-    page_object = paginator.get_page(page_number)
-    return render(request, 'udemy.html', {'results': results, 'page_obj': page_object})
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'udemy.html', {'page_obj': page_obj, 'query': query})
+
 
 
 def youtube_view(request):
-    query = request.POST.get('search_input')
+    if request.method == 'POST':
+        query = request.POST.get('search_input')
+    else:
+        query = request.GET.get('search_input')
     videos = YouTubeVideo.objects.filter(search_query__query=query)
-    paginator = Paginator(videos, per_page=8)
+    paginator = Paginator(videos, per_page=5)
     page_number = request.GET.get('page')
-    page_object = paginator.get_page(page_number)
-
-    return render(request, 'youtube.html', {'videos': page_object, 'page_obj': page_object})
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'youtube.html', {'page_obj': page_obj, 'query': query})

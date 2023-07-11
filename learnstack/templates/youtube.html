@@ -58,7 +58,7 @@
 </head>
 <body>
     <h1>Search Results</h1>
-    {% for video in videos %}
+    {% for video in page_obj %}
         <div class="video-block">
             <img class="thumbnail" src="{{ video.thumbnail_url }}" alt="Video Thumbnail">
             <div class="details">
@@ -68,5 +68,19 @@
             </div>
         </div>
     {% endfor %}
+
+    <div class="pagination">
+        <center>
+        {% if page_obj.has_previous %}
+            <a href="?search_input={{ query }}&page={{ page_obj.previous_page_number }}">Previous</a>
+        {% endif %}
+        
+        <span class="current-page">{{ page_obj.number }}</span>
+        
+        {% if page_obj.has_next %}
+            <a href="?search_input={{ query }}&page={{ page_obj.next_page_number }}">Next</a>
+        {% endif %}
+        </center>
+    </div>
 </body>
 </html>
