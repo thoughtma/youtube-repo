@@ -2,7 +2,7 @@ name: Learnstack Development
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["${GITHUB_REF#refs/heads/}"]
   pull_request:
     branches: [ "main" ]
 
