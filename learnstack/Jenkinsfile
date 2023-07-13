@@ -16,13 +16,13 @@ pipeline {
 
         stage('Test') {
             steps {
-                sh 'python manage.py test'
+                sh 'python3 manage.py test'
             }
         }
 
         stage('Collect static files') {
             steps {
-                sh 'python manage.py collectstatic --noinput'
+                sh 'python3 manage.py collectstatic --noinput'
             }
         }
 
