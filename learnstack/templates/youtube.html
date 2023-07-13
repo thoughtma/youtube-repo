@@ -57,7 +57,7 @@
     </style>
 </head>
 <body>
-    <h1>Search Results</h1>
+    <h1>Search Results for "<strong>{{query|capfirst}}</strong>"</h1>
     {% for video in page_obj %}
         <div class="video-block">
             <img class="thumbnail" src="{{ video.thumbnail_url }}" alt="Video Thumbnail">

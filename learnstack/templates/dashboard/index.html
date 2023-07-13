@@ -119,7 +119,363 @@
                                 font-size: 30px;
                             }
 
+                            
+                            html, body, .loader-container {
+                                margin: 0;
+                                height: 100%;
+                                width: 100%;
+                            }
+                            .loader-container {
+                                position: relative;
+                                background-color: #212526;
+                            }
+                            .structure, .smoke {
+                                position: absolute;
+                                z-index: 1000;
+                                top: calc(50% - 65px);
+                                left: calc(50% - 100px);
+                                width: 200px;
+                                height: 130px;
+                            }
+                            .smoke {
+                                z-index: 999;
+                            }
+                            .structure {
+                                transform: translate3d(0, 0, 0);
+                                perspective: 1000px;
+                                animation: shake 0.42s cubic-bezier(0.36, 0.07, 0.19, 0.97) both infinite;
+                            }
+                            .text-container {
+                                position: absolute;
+                                top: calc(50% + 100px);
+                                left: calc(50% - 100px);
+                                width: 200px;
+                            }
+                            .text-container h2 {
+                                width: 100%;
+                                text-align: center;
+                                font-family: 'Roboto Condensed', sans-serif;
+                                font-weight: 700;
+                                text-transform: uppercase;
+                                color: #fff;
+                            }
+                            #rocket-svg {
+                                position: absolute;
+                                top: -112px;
+                                transform: rotate(90deg);
+                            }
+                            #right-wing, #left-wing, #nose, #window-stroke, #middle-wing {
+                                fill: #f44336;
+                            }
+                            #rocket-main-part {
+                                fill: #ffd700;
+                            }
+                            #window-inner {
+                                fill: #212526;
+                            }
+                            .smoke span {
+                                position: absolute;
+                                width: 50px;
+                                border-bottom: 2px solid #000000;
+                            }
+                            .meteors-container {
+                                position: absolute;
+                                z-index: 998;
+                                width: 100%;
+                                height: 100%;
+                                overflow: hidden;
+                            }
+                            .meteors-container span {
+                                position: absolute;
+                                width: 75px;
+                                border-bottom: 2px solid #fff;
+                            }
+                            .smoke span:nth-child(1) {
+                                top: 28px;
+                                left: -50px;
+                                box-shadow: 0px 0px 5px #fff;
+                                animation: smokeAnim-0 ease-out 0.4s infinite;
+                            }
+                            @keyframes smokeAnim-0 {
+                                from {
+                                    left: -50px;
+                                    opacity: 1;
+                                }
+                                to {
+                                    left: -233px;
+                                    opacity: 0;
+                                }
+                            }
+                            .smoke span:nth-child(2) {
+                                top: 36px;
+                                left: -50px;
+                                box-shadow: 0px 0px 5px #fff;
+                                animation: smokeAnim-1 ease-out 0.35s infinite;
+                            }
+                            @keyframes smokeAnim-1 {
+                                from {
+                                    left: -50px;
+                                    opacity: 1;
+                                }
+                                to {
+                                    left: -171px;
+                                    opacity: 0;
+                                }
+                            }
+                            .smoke span:nth-child(3) {
+                                top: 44px;
+                                left: -50px;
+                                box-shadow: 0px 0px 5px #fff;
+                                animation: smokeAnim-2 ease-out 0.4s infinite;
+                            }
+                            @keyframes smokeAnim-2 {
+                                from {
+                                    left: -50px;
+                                    opacity: 1;
+                                }
+                                to {
+                                    left: -150px;
+                                    opacity: 0;
+                                }
+                            }
+                            .smoke span:nth-child(4) {
+                                top: 52px;
+                                left: -50px;
+                                box-shadow: 0px 0px 5px #fff;
+                                animation: smokeAnim-3 ease-out 0.3s infinite;
+                            }
+                            @keyframes smokeAnim-3 {
+                                from {
+                                    left: -50px;
+                                    opacity: 1;
+                                }
+                                to {
+                                    left: -285px;
+                                    opacity: 0;
+                                }
+                            }
+                            .smoke span:nth-child(5) {
+                                top: 60px;
+                                left: -50px;
+                                box-shadow: 0px 0px 5px #fff;
+                                animation: smokeAnim-4 ease-out 0.5s infinite;
+                            }
+                            @keyframes smokeAnim-4 {
+                                from {
+                                    left: -50px;
+                                    opacity: 1;
+                                }
+                                to {
+                                    left: -107px;
+                                    opacity: 0;
+                                }
+                            }
+                            .smoke span:nth-child(6) {
+                                top: 68px;
+                                left: -50px;
+                                box-shadow: 0px 0px 5px #fff;
+                                animation: smokeAnim-5 ease-out 0.4s infinite;
+                            }
+                            @keyframes smokeAnim-5 {
+                                from {
+                                    left: -50px;
+                                    opacity: 1;
+                                }
+                                to {
+                                    left: -288px;
+                                    opacity: 0;
+                                }
+                            }
+                            .smoke span:nth-child(7) {
+                                top: 76px;
+                                left: -50px;
+                                box-shadow: 0px 0px 5px #fff;
+                                animation: smokeAnim-6 ease-out 0.35s infinite;
+                            }
+                            @keyframes smokeAnim-6 {
+                                from {
+                                    left: -50px;
+                                    opacity: 1;
+                                }
+                                to {
+                                    left: -132px;
+                                    opacity: 0;
+                                }
+                            }
+                            .smoke span:nth-child(8) {
+                                top: 84px;
+                                left: -50px;
+                                box-shadow: 0px 0px 5px #fff;
+                                animation: smokeAnim-7 ease-out 0.5s infinite;
+                            }
+                            @keyframes smokeAnim-7 {
+                                from {
+                                    left: -50px;
+                                    opacity: 1;
+                                }
+                                to {
+                                    left: -275px;
+                                    opacity: 0;
+                                }
+                            }
+                            .smoke span:nth-child(9) {
+                                top: 92px;
+                                left: -50px;
+                                box-shadow: 0px 0px 5px #fff;
+                                animation: smokeAnim-8 ease-out 0.3s infinite;
+                            }
+                            @keyframes smokeAnim-8 {
+                                from {
+                                    left: -50px;
+                                    opacity: 1;
+                                }
+                                to {
+                                    left: -157px;
+                                    opacity: 0;
+                                }
+                            }
+                            .smoke span:nth-child(10) {
+                                top: 100px;
+                                left: -50px;
+                                box-shadow: 0px 0px 5px #fff;
+                                animation: smokeAnim-9 ease-out 0.45s infinite;
+                            }
+                            @keyframes smokeAnim-9 {
+                                from {
+                                    left: -50px;
+                                    opacity: 1;
+                                }
+                                to {
+                                    left: -154px;
+                                    opacity: 0;
+                                }
+                            }
+                            .meteors-container span:nth-child(1) {
+                                top: 16.6666666667%;
+                                left: 100%;
+                                box-shadow: 0px 0px 5px #fff;
+                                animation: meterosAnim-0 linear 0.55s infinite;
+                            }
+                            @keyframes meterosAnim-0 {
+                                0% {
+                                    left: 100%;
+                                }
+                                75% {
+                                    left: calc(0% - 75px);
+                                }
+                                100% {
+                                    left: calc(0% - 75px);
+                                }
+                            }
+                            .meteors-container span:nth-child(2) {
+                                top: 33.3333333333%;
+                                left: 100%;
+                                box-shadow: 0px 0px 5px #fff;
+                                animation: meterosAnim-1 linear 0.65s infinite;
+                            }
+                            @keyframes meterosAnim-1 {
+                                0% {
+                                    left: 100%;
+                                }
+                                75% {
+                                    left: calc(0% - 75px);
+                                }
+                                100% {
+                                    left: calc(0% - 75px);
+                                }
+                            }
+                            .meteors-container span:nth-child(3) {
+                                top: 50%;
+                                left: 100%;
+                                box-shadow: 0px 0px 5px #fff;
+                                animation: meterosAnim-2 linear 0.3s infinite;
+                            }
+                            @keyframes meterosAnim-2 {
+                                0% {
+                                    left: 100%;
+                                }
+                                75% {
+                                    left: calc(0% - 75px);
+                                }
+                                100% {
+                                    left: calc(0% - 75px);
+                                }
+                            }
+                            .meteors-container span:nth-child(4) {
+                                top: 66.6666666667%;
+                                left: 100%;
+                                box-shadow: 0px 0px 5px #fff;
+                                animation: meterosAnim-3 linear 0.3s infinite;
+                            }
+                            @keyframes meterosAnim-3 {
+                                0% {
+                                    left: 100%;
+                                }
+                                75% {
+                                    left: calc(0% - 75px);
+                                }
+                                100% {
+                                    left: calc(0% - 75px);
+                                }
+                            }
+                            .meteors-container span:nth-child(5) {
+                                top: 83.3333333333%;
+                                left: 100%;
+                                box-shadow: 0px 0px 5px #fff;
+                                animation: meterosAnim-4 linear 0.45s infinite;
+                            }
+                            @keyframes meterosAnim-4 {
+                                0% {
+                                    left: 100%;
+                                }
+                                75% {
+                                    left: calc(0% - 75px);
+                                }
+                                100% {
+                                    left: calc(0% - 75px);
+                                }
+                            }
+                            .meteors-container span:nth-child(6) {
+                                top: 100%;
+                                left: 100%;
+                                box-shadow: 0px 0px 5px #fff;
+                                animation: meterosAnim-5 linear 0.7s infinite;
+                            }
+                            @keyframes meterosAnim-5 {
+                                0% {
+                                    left: 100%;
+                                }
+                                75% {
+                                    left: calc(0% - 75px);
+                                }
+                                100% {
+                                    left: calc(0% - 75px);
+                                }
+                            }
+                            @keyframes shake {
+                                10%, 90% {
+                                    transform: translate3d(-1px, 1px, 0);
+                                }
+                                20%, 80% {
+                                    transform: translate3d(2px, 2px, 0);
+                                }
+                                30%, 50%, 70% {
+                                    transform: translate3d(-2px, -2px, 0);
+                                }
+                                40%, 60% {
+                                    transform: translate3d(2px, 2px, 0);
+                                }
+                            }
 
+                            @keyframes blink {
+                                0% { opacity: 1; }
+                                50% { opacity: 0; }
+                                100% { opacity: 1; }
+                            }
+
+                            .blink-text {
+                                animation: blink 1s infinite;
+                            }
                 </style>
         
         </head>
@@ -208,124 +564,176 @@
         </main>
         {% endif %}
 
-        <!-- ======= Services Section ======= -->
-        <section id="original-div" class="services">
+        <section id="loader-div" style="margin-top: 10%;margin-bottom: 10%" >
             <div class="container">
-                <div class="row">
-                    <div class="col-md-6 col-lg-4 d-flex align-items-stretch" data-aos="fade-up">
-                        <div class="icon-box icon-box-pink">
-                            <div class="icon">
-                                <i class="fa fa-youtube-play red-color" style="color: red;"></i>
-                            </div>
-                            <h4 class="title"><a href="">YouTube</a></h4>
-                            <p class="description">YouTube Education offers an accessible, diverse, and interactive learning experience, making education more engaging and readily available to individuals around the world.</p>
-                            <div class="overlay">
-                                <a href="https://www.youtube.com/" class="icon d-flex align-items-center justify-content-center">
-                                    <span class="ion-ios-search"></span>
-                                </a>
-                            </div>
-                            <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
+                <div class="loader-container">
+                    <div class="rocket-container">
+                        <div class="structure">
+                            <svg id="rocket-svg" height="352" version="1.1" viewbox="0 0 59.266662 93.133333" width="224" xmlns="http://www.w3.org/2000/svg">
+                                <g id="layer2" transform="translate(-33.866666,-33.866666)">
+                                    <path id="right-wing" d="m 296,336 a 8.0000078,8.0000078 0 0 0 -8,8 v 80 a 8.0000078,7.9999501 0 0 0 1.16406,4.14062 l -0.22461,0.11329 49.32227,49.32031 0.0781,0.0801 0.004,-0.004 A 7.9999934,8.0000655 0 0 0 344,480 a 7.9999934,8.0000655 0 0 0 8,-8 v -80 a 7.9999934,7.9998924 0 0 0 -2.34961,-5.65625 l 0.004,-0.004 -48.00391,-48.00195 -0.004,0.002 A 8.0000078,8.0000078 0 0 0 296,336 Z" style="opacity:1;fill-opacity:1;stroke:none;stroke-width:0.99999994;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" transform="scale(0.26458333)"></path>
+                                    <path id="left-wing" d="m 184,336 a 8.0000006,8.0000078 0 0 0 -5.65234,2.3457 l -0.004,-0.002 -47.91797,47.91797 -0.082,0.082 0.004,0.002 A 8.0000078,7.9998924 0 0 0 128,392 v 80 a 8.0000078,8.0000655 0 0 0 8,8 8.0000078,8.0000655 0 0 0 5.65625,-2.34961 l 0.004,0.004 49.40039,-49.40039 -0.22657,-0.11329 A 8.0000006,7.9999501 0 0 0 192,424 v -80 a 8.0000006,8.0000078 0 0 0 -8,-8 z" style="opacity:1;fill-opacity:1;stroke:none;stroke-width:0.99999994;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" transform="scale(0.26458333)"></path>
+                                    <path id="rocket-main-part" d="M 239.96875,128 A 111.99996,124.13082 0 0 0 176,240 l 16,200 a 8.0000006,8.0000655 0 0 0 8,8 h 80 a 8.0000078,8.0000655 0 0 0 8,-8 L 304,240 A 111.99996,124.13082 0 0 0 239.96875,128 Z" style="opacity:1;fill-opacity:1;stroke:none;stroke-width:0.99999994;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" transform="scale(0.26458333)"></path>
+                                    <path id="nose" d="m 239.96875,128 a 111.99996,124.13082 0 0 0 -47.77344,48 h 95.51953 a 111.99996,124.13082 0 0 0 -47.74609,-48 z" style="opacity:1;fill-opacity:1;stroke:none;stroke-width:0.99999994;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" transform="scale(0.26458333)"></path>
+                                    <ellipse id="window-stroke" cx="63.5" cy="59.266663" rx="7.4083333" ry="7.4083328" style="opacity:1;fill-opacity:1;stroke:black;stroke-width:0.26458332;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"></ellipse>
+                                    <ellipse id="window-inner" cx="63.499996" cy="59.266666" rx="6.3499975" ry="6.3500061" style="opacity:1;fill-opacity:1;stroke:black;stroke-width:0.26458332;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"></ellipse>
+                                    <path id="middle-wing" d="m 240,336 a 7.9999898,8.0000078 0 0 0 -8,8 v 128 a 7.9999898,8.0000078 0 0 0 8,8 7.9999898,8.0000078 0 0 0 8,-8 V 344 a 7.9999898,8.0000078 0 0 0 -8,-8 z" style="opacity:1;fill-opacity:1;stroke:none;stroke-width:0.99999994;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" transform="scale(0.26458333)"></path>
+                                    <path id="shadow-layer" d="M 239.96875,128 A 111.99996,124.13082 0 0 0 176,240 l 7.68164,96.01562 a 8.0000006,8.0000078 0 0 0 -5.33398,2.33008 l -0.004,-0.002 -47.91797,47.91797 -0.082,0.082 0.004,0.002 A 8.0000078,7.9998924 0 0 0 128,392 v 80 a 8.0000078,8.0000655 0 0 0 8,8 8.0000078,8.0000655 0 0 0 5.65625,-2.34961 l 0.004,0.004 49.40039,-49.40039 -0.22657,-0.11329 a 8.0000006,7.9999501 0 0 0 0.18946,-0.3496 l 0.0371,0.46289 L 192,440 a 8.0000006,8.0000655 0 0 0 8,8 h 32 v 24 a 7.9999898,8.0000078 0 0 0 8,8 V 336 252 196 128.01758 A 111.99996,124.13082 0 0 0 239.96875,128 Z" style="opacity:0.2;fill:black;fill-opacity:1;stroke:none;stroke-width:0.99999994;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" transform="scale(0.26458333)"></path>
+                                </g>
+                            </svg>
+                        </div>
+                        <div class="text-container">
+                            <h2 class="blink-text" style="color: #000000;">Loading</h2>
+                        </div>
+                        <div class="smoke">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-4 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
-                        <div class="icon-box icon-box-cyan">
-                            <div class="icon">
-                                <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <title>Udemy</title>
-                                    <path d="M12 0L5.81 3.573v3.574l6.189-3.574 6.191 3.574V3.573zM5.81 10.148v8.144c0 1.85.589 3.243 1.741 4.234S10.177 24 11.973 24s3.269-.482 4.448-1.474c1.179-.991 1.768-2.439 1.768-4.314v-8.064h-3.242v7.85c0 2.036-1.509 3.055-2.948 3.055-1.428 0-2.947-.991-2.947-3.027v-7.878z"/>
-                                </svg>
-                            </div>
-                            <h4 class="title"><a href="">Udemy</a></h4>
-                            <p class="description">Udemy is a popular online learning platform that provides learners with a diverse selection of courses, flexible learning options, and access to expert instructors.</p>
-                            <div class="overlay">
-                                <a href="https://www.udemy.com/" class="icon d-flex align-items-center justify-content-center">
-                                    <span class="ion-ios-search"></span>
-                                </a>
-                            </div>
-                            <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
-                        <div class="icon-box icon-box-green">
-                            <div class="icon">
-                                <svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500.000000 1000.000000" preserveAspectRatio="xMidYMid meet">
-                                    <metadata>
-                                        Created by potrace 1.16, written by Peter Selinger 2001-2019
-                                    </metadata>
-                                    <g transform="translate(0.000000,520.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">
-                                        <path d="M2333 4195 c-157 -28 -282 -87 -377 -176 -97 -91 -120 -143 -153 -360 l-27 -176 -86 -28 c-328 -106 -496 -321 -422 -540 32 -93 70 -154 141 -226 99 -98 190 -162 341 -239 217 -110 467 -183 750 -220 47 -7 87 -14 89 -16 14 -14 -127 0 -250 26 -249 51 -485 61 -690 30 -120 -19 -112 -13 -106 -82 4 -48 11 -66 31 -84 16 -15 33 -51 46 -97 72 -247 89 -279 175 -322 58 -29 64 -30 200 -30 122 1 148 4 197 23 103 41 170 130 244 321 33 85 58 108 106 95 28 -8 36 -20 73 -109 59 -143 93 -201 146 -249 71 -64 134 -81 294 -81 244 0 280 34 370 359 9 32 27 69 41 83 17 17 29 44 36 85 6 32 8 61 5 64 -2 3 -51 13 -108 22 l-103 18 44 13 c80 23 216 100 278 157 43 38 71 75 94 122 30 60 33 76 33 152 0 80 -3 92 -39 164 -43 88 -146 204 -240 271 -52 37 -56 43 -51 70 37 213 53 361 45 413 -35 212 -268 423 -565 511 -171 50 -403 65 -562 36z m-578 -1002 c28 -112 233 -254 476 -332 201 -63 390 -90 605 -85 252 6 443 71 511 173 13 19 23 28 23 20 0 -46 -41 -254 -54 -274 -44 -67 -139 -121 -273 -155 -116 -30 -380 -38 -533 16 -388 57 -699 207 -784 378 -31 61 -31 69 -9 215 16 111 25 128 38 76z m392 -974 c89 -12 167 -42 188 -73 98 -84 82 -321 -26 -393 -44 -32 -94 -45 -206 -54 l-85 -6 -45 39 c-42 36 -74 45 -157 45 -83 0 -115 -9 -160 -48 -72 -62 -87 -100 -87 -218 0 -95 3 -106 38 -170 42 -77 137 -171 234 -238 54 -34 57 -35 159 -35 131 0 150 8 206 81 69 90 94 229 70 404 -15 107 -45 167 -122 253 -47 55 -49 56 -135 56 -66 0 -92 -5 -127 -24 l-48 -23 -44 33 c-39 29 -57 34 -117 34 -47 0 -78 -7 -123 -29 l-62 -30 -25 27 c-29 32 -75 52 -137 59 -57 6 -64 5 -64 -11 0 -32 74 -114 132 -141 42 -20 66 -23 165 -23 99 0 113 2 150 26 70 45 83 121 43 254 -42 142 -106 203 -235 240 -68 20 -179 20 -246 0 -183 -53 -298 -188 -336 -397 -10 -52 -7 -70 17 -128 13 -30 38 -85 56 -122 37 -82 56 -98 122 -98 71 0 106 29 123 101 12 50 58 116 102 143 31 20 35 21 44 7 6 -11 26 -29 45 -39 36 -18 96 -19 138 -1 69 29 155 125 181 204 14 41 13 44 -15 74 -18 19 -33 44 -33 55 0 27 29 46 73 46 21 0 63 -18 102 -41z"/>
-                                        <path d="M2212 1585 c-64 -18 -96 -34 -187 -94 -90 -60 -116 -71 -171 -71 -57 0 -104 20 -134 56 l-23 29 7 -50 c8 -65 49 -147 89 -181 18 -15 57 -39 87 -53 47 -22 72 -26 180 -29 197 -7 366 36 435 108 l28 29 29 -30 c69 -68 171 -98 364 -106 126 -5 149 -3 211 15 118 36 193 121 212 240 l8 51 -27 -29 c-34 -37 -68 -50 -126 -50 -55 0 -95 16 -174 70 -144 98 -256 127 -365 95 -41 -11 -71 -28 -97 -54 l-37 -38 -28 29 c-64 68 -175 93 -281 63z"/>
-                                    </g>
-                                </svg>
-                            </div>
-                            <h4 class="title"><a href="">Our Blogs</a></h4>
-                            <p class="description">Learnstach is a valuable blog that provides comprehensive and up-to-date information on learning technologies.</p>
-                            <div class="overlay">
-                                <a href="#" class="icon d-flex align-items-center justify-content-center">
-                                    <p style="color: black;">Coming Soon</p>
-                                </a>
-                            </div>
-                            <p class="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-                        </div>
+                    <div class="meteors-container">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
                     </div>
                 </div>
             </div>
         </section>
-        
-        <!-- End Services Section -->
 
-        <section id="replacement-div">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div id="output-heading" style="display: none;">
-                            <h2 style="text-align: center; font-family: serif;">Search Results for {{query|capfirst}}</h2>
+        <!-- ======= Services Section ======= -->
+            <section id="original-div" class="services">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 col-lg-4 d-flex align-items-stretch" data-aos="fade-up">
+                            <div class="icon-box icon-box-pink">
+                                <div class="icon">
+                                    <i class="fa fa-youtube-play red-color" style="color: red;"></i>
+                                </div>
+                                <h4 class="title"><a href="">YouTube</a></h4>
+                                <p class="description">YouTube Education offers an accessible, diverse, and interactive learning experience, making education more engaging and readily available to individuals around the world.</p>
+                                <div class="overlay">
+                                    <a href="https://www.youtube.com/" class="icon d-flex align-items-center justify-content-center">
+                                        <center>
+                                            <span class="ion-ios-search" style="color:dodgerblue"></span>
+                                        </center>
+                                    </a>
+                                </div>
+                                <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
+                            </div>
                         </div>
-                        <div id="udemy-div" style="display: none;">
-                            <h2 style="text-align: left; font-family: serif;">Udemy:</h2>
+                        <div class="col-md-6 col-lg-4 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+                            <div class="icon-box icon-box-cyan">
+                                <div class="icon">
+                                    <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <title>Udemy</title>
+                                        <path d="M12 0L5.81 3.573v3.574l6.189-3.574 6.191 3.574V3.573zM5.81 10.148v8.144c0 1.85.589 3.243 1.741 4.234S10.177 24 11.973 24s3.269-.482 4.448-1.474c1.179-.991 1.768-2.439 1.768-4.314v-8.064h-3.242v7.85c0 2.036-1.509 3.055-2.948 3.055-1.428 0-2.947-.991-2.947-3.027v-7.878z"/>
+                                    </svg>
+                                </div>
+                                <h4 class="title"><a href="">Udemy</a></h4>
+                                <p class="description">Udemy is a popular online learning platform that provides learners with a diverse selection of courses, flexible learning options, and access to expert instructors.</p>
+                                <div class="overlay">
+                                    <a href="https://www.udemy.com/" class="icon d-flex align-items-center justify-content-center">
+                                        <center>
+                                        <span class="ion-ios-search" style="color:dodgerblue"></span>
+                                        </center>
+                                    </a>
+                                </div>
+                                <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
+                            </div>
                         </div>
-        
-                        <div class="featured-carousel owl-carousel">
-                            {% for result in results|slice:":9" %}
-                            <div class="item">
-                                <div class="work">
-                                    <div class="img d-flex align-items-center justify-content-center rounded"
-                                        style="background-image: url('{{ result.thumbnail }}');">
-                                        <a href="https://www.udemy.com{{ result.url }}"
-                                            class="icon d-flex align-items-center justify-content-center">
-                                            <span class="ion-ios-search"></span>
-                                        </a>
-                                    </div>
-                                    <div class="text pt-3 w-100 text-center">
-                                        <h3><a href="{{ result.url }}">{{ result.title }}</a></h3>
-                                        <span>{{ result.price }}</span>
+                        <div class="col-md-6 col-lg-4 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
+                            <div class="icon-box icon-box-blue">
+                                <div class="icon">
+                                    <svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500.000000 1000.000000" preserveAspectRatio="xMidYMid meet">
+                                        <metadata>
+                                            Created by potrace 1.16, written by Peter Selinger 2001-2019
+                                        </metadata>
+                                        <g transform="translate(0.000000,520.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">
+                                            <path d="M2333 4195 c-157 -28 -282 -87 -377 -176 -97 -91 -120 -143 -153 -360 l-27 -176 -86 -28 c-328 -106 -496 -321 -422 -540 32 -93 70 -154 141 -226 99 -98 190 -162 341 -239 217 -110 467 -183 750 -220 47 -7 87 -14 89 -16 14 -14 -127 0 -250 26 -249 51 -485 61 -690 30 -120 -19 -112 -13 -106 -82 4 -48 11 -66 31 -84 16 -15 33 -51 46 -97 72 -247 89 -279 175 -322 58 -29 64 -30 200 -30 122 1 148 4 197 23 103 41 170 130 244 321 33 85 58 108 106 95 28 -8 36 -20 73 -109 59 -143 93 -201 146 -249 71 -64 134 -81 294 -81 244 0 280 34 370 359 9 32 27 69 41 83 17 17 29 44 36 85 6 32 8 61 5 64 -2 3 -51 13 -108 22 l-103 18 44 13 c80 23 216 100 278 157 43 38 71 75 94 122 30 60 33 76 33 152 0 80 -3 92 -39 164 -43 88 -146 204 -240 271 -52 37 -56 43 -51 70 37 213 53 361 45 413 -35 212 -268 423 -565 511 -171 50 -403 65 -562 36z m-578 -1002 c28 -112 233 -254 476 -332 201 -63 390 -90 605 -85 252 6 443 71 511 173 13 19 23 28 23 20 0 -46 -41 -254 -54 -274 -44 -67 -139 -121 -273 -155 -116 -30 -380 -38 -533 16 -388 57 -699 207 -784 378 -31 61 -31 69 -9 215 16 111 25 128 38 76z m392 -974 c89 -12 167 -42 188 -73 98 -84 82 -321 -26 -393 -44 -32 -94 -45 -206 -54 l-85 -6 -45 39 c-42 36 -74 45 -157 45 -83 0 -115 -9 -160 -48 -72 -62 -87 -100 -87 -218 0 -95 3 -106 38 -170 42 -77 137 -171 234 -238 54 -34 57 -35 159 -35 131 0 150 8 206 81 69 90 94 229 70 404 -15 107 -45 167 -122 253 -47 55 -49 56 -135 56 -66 0 -92 -5 -127 -24 l-48 -23 -44 33 c-39 29 -57 34 -117 34 -47 0 -78 -7 -123 -29 l-62 -30 -25 27 c-29 32 -75 52 -137 59 -57 6 -64 5 -64 -11 0 -32 74 -114 132 -141 42 -20 66 -23 165 -23 99 0 113 2 150 26 70 45 83 121 43 254 -42 142 -106 203 -235 240 -68 20 -179 20 -246 0 -183 -53 -298 -188 -336 -397 -10 -52 -7 -70 17 -128 13 -30 38 -85 56 -122 37 -82 56 -98 122 -98 71 0 106 29 123 101 12 50 58 116 102 143 31 20 35 21 44 7 6 -11 26 -29 45 -39 36 -18 96 -19 138 -1 69 29 155 125 181 204 14 41 13 44 -15 74 -18 19 -33 44 -33 55 0 27 29 46 73 46 21 0 63 -18 102 -41z"/>
+                                            <path d="M2212 1585 c-64 -18 -96 -34 -187 -94 -90 -60 -116 -71 -171 -71 -57 0 -104 20 -134 56 l-23 29 7 -50 c8 -65 49 -147 89 -181 18 -15 57 -39 87 -53 47 -22 72 -26 180 -29 197 -7 366 36 435 108 l28 29 29 -30 c69 -68 171 -98 364 -106 126 -5 149 -3 211 15 118 36 193 121 212 240 l8 51 -27 -29 c-34 -37 -68 -50 -126 -50 -55 0 -95 16 -174 70 -144 98 -256 127 -365 95 -41 -11 -71 -28 -97 -54 l-37 -38 -28 29 c-64 68 -175 93 -281 63z"/>
+                                        </g>
+                                    </svg>
+                                </div>
+                                <h4 class="title"><a href="">Our Blogs</a></h4>
+                                <p class="description">Learnstach is a valuable blog that provides comprehensive and up-to-date information on learning technologies.</p>
+                                <div class="overlay">
+                                    <a href="#" class="icon d-flex align-items-center justify-content-center">
+                                        <p style="color: black;">Coming Soon</p>
+                                    </a>
+                                </div>
+                                <p class="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- End Services Section -->
+
+            <section id="replacement-div">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="output-heading" style="display: none;">
+                                <h2 style="text-align: center; font-family: serif;">Search Results for "<strong>{{query|capfirst}}</strong>"</h2>
+                            </div>
+                            <div id="udemy-div" style="display: none;">
+                                <h2 style="text-align: left; font-family: serif;">Udemy:</h2>
+                            </div>
+            
+                            <div class="featured-carousel owl-carousel">
+                                {% for result in results|slice:":9" %}
+                                <div class="item">
+                                    <div class="work">
+                                        <div class="img d-flex align-items-center justify-content-center rounded"
+                                            style="background-image: url('{{ result.thumbnail }}');">
+                                            <a href="https://www.udemy.com{{ result.url }}"
+                                                class="icon d-flex align-items-center justify-content-center">
+                                                <span class="ion-ios-search"></span>
+                                            </a>
+                                        </div>
+                                        <div class="text pt-3 w-100 text-center">
+                                            <h3><a href="{{ result.url }}">{{ result.title }}</a></h3>
+                                            <span>{{ result.price }}</span>
+                                        </div>
                                     </div>
                                 </div>
+                                {% endfor %}
                             </div>
-                            {% endfor %}
-                        </div>
-        
-                        {% if results %}
-                        <div id="explore-udemy-button" class="text-center mt-4">
-                            <div style="display: flex; justify-content: center;">
-                                <form method="POST" action="{% url 'udemy' %}" style="margin-right: 10px;">
-                                    {% csrf_token %}
-                                    <input type="hidden" name="search_input" value="{{ query }}">
-                                    <button type="submit" class="explore-button">
-                                        Explore Udemy
-                                        <span class="arrow"></span>
-                                    </button>
-                                </form>
+            
+                            {% if results %}
+                            <div id="explore-udemy-button" class="text-center mt-4">
+                                <div style="display: flex; justify-content: center;">
+                                    <form method="POST" action="{% url 'udemy' %}" style="margin-right: 10px;">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="search_input" value="{{ query }}">
+                                        <button type="submit" class="explore-button">
+                                            Explore Udemy
+                                            <span class="arrow"></span>
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
+                            {% endif %}
                         </div>
-                        {% endif %}
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+
+      
+
         
         <section id="replacement-div2" >
-
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
@@ -581,7 +989,7 @@
                 $('#replacement-div').fadeIn();
                 $('#replacement-div2').fadeIn();
             });
-        });
+            });
     </script>
 
     <script>
@@ -597,6 +1005,29 @@
             document.getElementById('explore-youtube-button').style.display = 'block';
         }
     </script>
+    <script>
+   window.addEventListener('DOMContentLoaded', function() {
+    // Hide the loader when the page starts loading
+    var loaderDiv = document.getElementById('loader-div');
+    var replacementDiv = document.getElementById('replacement-div');
+    var replacementDiv2 = document.getElementById('replacement-div-2');
+
+    loaderDiv.style.display = 'none';
+    replacementDiv.style.display = 'block';
+    replacementDiv2.style.display = 'block';
+});
+
+window.addEventListener('beforeunload', function() {
+    // Show the loader when the page is reloading
+    var loaderDiv = document.getElementById('loader-div');
+    var replacementDiv = document.getElementById('replacement-div');
+    var replacementDiv2 = document.getElementById('replacement-div2');
+
+    loaderDiv.style.display = 'block';
+    replacementDiv.style.display = 'none';
+    replacementDiv2.style.display = 'none';
+});
+</script>
 
 </body>
 </html>
