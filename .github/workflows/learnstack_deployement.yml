@@ -2,7 +2,7 @@ name: Learnstack Development
 
 on:
   push:
-    branches: ["${GITHUB_REF#refs/heads/}"]
+    branches: ["main"]
   pull_request:
     branches: [ "main" ]
 
@@ -23,11 +23,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Build Docker image
-        run: |
-          docker build -t rohittt27/learnstackapp .
-          docker login -u rohittt27 -p Rohit@thougtwin
-          docker push rohittt27/learnstackapp
       - name: Install Ngrok
         run: |
           curl -O https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
