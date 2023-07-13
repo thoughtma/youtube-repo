@@ -1,12 +1,12 @@
 import threading
-from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.views.decorators.csrf import csrf_exempt
 from sites.models import SearchQuery, UdemyCourse, YouTubeVideo
 from sites.utils import search_youtube_videos, search_udemy_courses
 from datetime import timedelta
 from django.utils import timezone
 from django.core.paginator import Paginator
+
 
 def frontpage(request):
     return render(request, 'dashboard/index.html')
@@ -34,7 +34,6 @@ def search_results(request):
             udemy_courses_exist = UdemyCourse.objects.filter(search_query__query=query)
             if udemy_courses_exist.exists() and udemy_courses_exist.first().search_query.timestamp > timezone.now() - timedelta(days=1):
                 results = UdemyCourse.objects.filter(search_query__query=query)
-
             else:
                 new_search_query_udemy = SearchQuery.objects.create(query=query)
                 udemy_thread = threading.Thread(target=search_udemy_courses, args=(query, new_search_query_udemy,))
@@ -47,7 +46,6 @@ def search_results(request):
         elif selected_category == 'categories':
             youtube_videos_exist = YouTubeVideo.objects.filter(search_query__query=query)
             udemy_courses_exist = UdemyCourse.objects.filter(search_query__query=query)
-
             if youtube_videos_exist.exists() and udemy_courses_exist and youtube_videos_exist.first().search_query.timestamp > timezone.now() - timedelta(days=1) and udemy_courses_exist.first().search_query.timestamp > timezone.now() - timedelta(days=1):
                 videos = YouTubeVideo.objects.filter(search_query__query=query)
                 results = UdemyCourse.objects.filter(search_query__query=query)
@@ -65,7 +63,7 @@ def search_results(request):
                 results = UdemyCourse.objects.filter(search_query=new_search_query_udemy)
         return render(request, 'dashboard/index.html', {'videos': videos, 'results': results, 'query': query})
 
-    return HttpResponse('Invalid request method')
+    return redirect('frontpage')
 
 
 
