@@ -1,0 +1,35 @@
+name: Django and Docker
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.x  
+
+    - name: Install dependencies
+      run: pip install -r requirements.txt
+
+    - name: Build and tag Docker image
+
+      run: |
+        docker build -t learnstack .
+        docker run -d -p 8000:8000 learnstack
+        ngrok authtoken 2QBT6lvHjnP16R2WJrASBWVZbRA_o6tJTeYcJcH8QyABUkEX
+        ngrok http 8000
+
+    
