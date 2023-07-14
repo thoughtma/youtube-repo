@@ -5,7 +5,7 @@ on:
     branches: ["main"]
   pull_request:
     branches: ["main"]
-    
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -19,9 +19,15 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+      - name: Install Ngrok
+        run: |
+          wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
+          unzip ngrok-stable-linux-amd64.zip
+      - name: Authenticate Ngrok
+        env:
+          NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
+        run: |
+          ./ngrok authtoken $NGROK_AUTH_TOKEN
       - name: Start Ngrok
-        uses: w9jds/ngrok@v2
-        with:
-          authtoken: ${{ secrets.NGROK_AUTH_TOKEN }}
-          region: us
-          port: 8000
+        run: |
+          ./ngrok http 8000 --region=us
