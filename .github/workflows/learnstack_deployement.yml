@@ -50,8 +50,14 @@ jobs:
       - name: Wait for Ngrok URL
         id: wait_for_ngrok
         run: |
-          sleep 30
-          while [[ -z $(cat ngrok_output.txt | grep "https://.*ngrok.io") ]]; do sleep 5; done
+          timeout=$(($(date +%s) + 300))  # Timeout after 5 minutes
+          while [[ -z $(cat ngrok_output.txt | grep "https://.*ngrok.io") ]]; do
+            if [[ $(date +%s) -gt $timeout ]]; then
+              echo "Timeout reached. Ngrok tunnel setup took too long."
+              exit 1
+            fi
+            sleep 5
+          done
 
       - name: Get Ngrok URL
         run: |
