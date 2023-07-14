@@ -34,11 +34,15 @@ jobs:
         run: |
           ./ngrok authtoken $NGROK_AUTH_TOKEN
 
+      - name: Start Django server
+        run: |
+          python3 manage.py runserver 8000 &
+
       - name: Start Ngrok
         id: ngrok
         run: |
           sleep 5 # Wait for Django server to start
-          ./ngrok http 8000 --host-header=localhost:8000 > ngrok_output.txt &
+          ./ngrok http 8000 --host-header="localhost:8000" > ngrok_output.txt &
 
       - name: Wait for Ngrok URL
         id: wait_for_ngrok
