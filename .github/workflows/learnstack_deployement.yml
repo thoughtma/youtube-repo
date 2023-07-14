@@ -37,4 +37,5 @@ jobs:
       - name: Start Ngrok and capture URL
         id: ngrok
         run: |
-          ./ngrok http 8000 
+          ./ngrok http 8000 > ngrok_output.txt
+          cat ngrok_output.txt
