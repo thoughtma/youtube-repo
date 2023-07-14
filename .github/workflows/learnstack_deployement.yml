@@ -68,14 +68,24 @@ jobs:
 
       - name: Wait for Ngrok tunnel to be established
         run: |
-          sleep 60
-          while ! grep -q "https://.*ngrok.io" ngrok_output.txt; do
-            sleep 10
+          timeout=$(($(date +%s) + 300))  # Timeout after 5 minutes
+          while [[ -z $(cat ngrok_output.txt | grep "https://.*ngrok.io") ]]; do
+            if [[ $(date +%s) -gt $timeout ]]; then
+              echo "Timeout reached. Ngrok tunnel setup took too long."
+              echo "ngrok_output.txt:"
+              cat ngrok_output.txt
+              echo "ngrok logs:"
+              cat ngrok.log
+              exit 1
+            fi
+            sleep 5
           done
 
-      - name: Get Ngrok URL
+      - name: Start Ngrok
+        id: ngrok
         run: |
-          cat ngrok_output.txt | grep -o "https://.*ngrok.io" > ngrok_url.txt
+          sleep 10 # Wait for Django server to start
+          ./ngrok http 8000 --host-header="localhost:8000" > ngrok_output.txt 2> ngrok.log &
 
       - name: Display Ngrok URL
         run: |
