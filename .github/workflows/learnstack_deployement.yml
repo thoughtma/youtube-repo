@@ -9,41 +9,43 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Docker
-        uses: docker/setup-docker@v1
-
-      - name: Build and tag Docker image
-        run: |
-          docker build -t your-docker-image-name .
-          docker tag your-docker-image-name:latest your-docker-image-name:tag
-
-      - name: Authenticate with GitHub Container Registry
-        uses: docker/login-action@v1
+      - name: Set up Python version
+        uses: actions/setup-python@v2
         with:
-          registry: docker.pkg.github.com
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          python-version: 3.8
 
-      - name: Push Docker image to GitHub Container Registry
+      - name: Install dependencies
         run: |
-          docker push docker.pkg.github.com/${{ github.repository }}/your-docker-image-name:tag
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
-      - name: Install ngrok
+      - name: Download and extract ngrok
         run: |
           wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
           unzip ngrok-stable-linux-amd64.zip
 
-      - name: Deploy with ngrok
+      - name: Authenticate Ngrok
+        env:
+          NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
+        run: |
+          ./ngrok authtoken $NGROK_AUTH_TOKEN
+
+      - name: Stop Ngrok
+        run: |
+          killall ngrok
+          sleep 2
+
+      - name: Start Ngrok and capture URL
+        id: ngrok
         run: |
           ./ngrok http 8000 --region=us > ngrok-log.txt &
           sleep 10
           curl -s localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url'
 
-      - name: Display ngrok URL
+      - name: Display Ngrok URL
         run: |
           echo "Ngrok URL: ${{ steps.ngrok.outputs.stdout }}"
