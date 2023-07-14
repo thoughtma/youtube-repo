@@ -51,11 +51,11 @@ jobs:
         id: wait_for_ngrok
         run: |
           sleep 30
-          while ! grep -q "ngrok.io" ngrok_output.txt; do sleep 5; done
+          while [[ -z $(cat ngrok_output.txt | grep "https://.*ngrok.io") ]]; do sleep 5; done
 
       - name: Get Ngrok URL
         run: |
-          cat ngrok_output.txt | awk '/https:\/\//{print $NF}' > ngrok_url.txt
+          cat ngrok_output.txt | grep -o "https://.*ngrok.io" > ngrok_url.txt
 
       - name: Display Ngrok URL
         run: |
