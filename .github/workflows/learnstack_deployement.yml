@@ -36,8 +36,8 @@ jobs:
 
       - name: Start Django server
         run: |
-          cd learnstack
-          python3 ./learnstack/manage.py runserver 8000 &
+          cd ${{ github.workspace }}/LEARNSTACK/youtube-repo/learnstack
+          python3 manage.py runserver 8000 &
 
       - name: Start Ngrok
         id: ngrok
