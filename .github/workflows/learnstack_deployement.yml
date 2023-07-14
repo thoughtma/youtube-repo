@@ -34,22 +34,21 @@ jobs:
         run: |
           ./ngrok authtoken $NGROK_AUTH_TOKEN
 
-      - name: Start Ngrok in background
+      - name: Start Ngrok
         id: ngrok
         run: |
-          ./ngrok http 8000 > ngrok_output.txt &
-          echo "Ngrok started"
+          ./ngrok http 8000 &
 
-      - name: Wait for Ngrok to initialize
+      - name: Wait for Ngrok URL
+        id: wait_for_ngrok
         run: |
-          sleep 10 # Adjust the sleep duration as needed
-          echo "Ngrok ready"
+          sleep 10
+          while ! curl -s http://localhost:4040/api/tunnels | grep -q "public_url"; do sleep 5; done
 
-      - name: Extract Ngrok URL
-        id: extract_ngrok_url
+      - name: Get Ngrok URL
         run: |
-          sed -n 's/.*\(http:\/\/[0-9a-z]*\.ngrok\.io\).*/\1/p' ngrok_output.txt > ngrok_url.txt
+          curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url' > ngrok_url.txt
 
-      - name: Capture Ngrok URL
+      - name: Display Ngrok URL
         run: |
           cat ngrok_url.txt
