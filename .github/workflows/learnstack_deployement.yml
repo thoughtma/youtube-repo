@@ -37,7 +37,7 @@ jobs:
       - name: Start Ngrok
         id: ngrok
         run: |
-          cd /home/dell/LEARNSTACK/youtube-repo/learnstack
+          cd /home/dell/LEARNSTACK/youtube-repo/learnstack/learnstack
           python3 manage.py runserver 8000 &
           sleep 5 # Wait for Django server to start
           ./ngrok http 8000 --host-header=localhost:8000 > ngrok_output.txt &
