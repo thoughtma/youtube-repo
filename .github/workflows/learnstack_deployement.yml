@@ -34,6 +34,11 @@ jobs:
         run: |
           ./ngrok authtoken $NGROK_AUTH_TOKEN
 
+      - name: Restart Ngrok Agent
+        run: |
+          pkill -f ngrok
+          sleep 2
+
       - name: Start Ngrok and capture URL
         id: ngrok
         run: |
