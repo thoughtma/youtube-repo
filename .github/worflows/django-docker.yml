@@ -1,5 +1,3 @@
-name: Django and Docker
-
 on:
   push:
     branches:
@@ -25,11 +23,19 @@ jobs:
       run: pip install -r requirements.txt
 
     - name: Build and tag Docker image
-
       run: |
         docker build -t learnstack .
         docker run -d -p 8000:8000 learnstack
-        ngrok authtoken 2QBT6lvHjnP16R2WJrASBWVZbRA_o6tJTeYcJcH8QyABUkEX
-        ngrok http 8000
 
+    - name: Install ngrok
+      run: |
+        wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
+        unzip ngrok-stable-linux-amd64.zip
+        chmod +x ngrok
+
+    - name: Authenticate with ngrok
+      run: ./ngrok authtoken 2QBT6lvHjnP16R2WJrASBWVZbRA_o6tJTeYcJcH8QyABUkEX
+
+    - name: Expose application using ngrok
+      run: ./ngrok http 8000
     
