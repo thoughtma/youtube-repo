@@ -45,9 +45,11 @@ jobs:
           sleep 10 # Adjust the sleep duration as needed
           echo "Ngrok ready"
 
+      - name: Extract Ngrok URL
+        id: extract_ngrok_url
+        run: |
+          cat ngrok_output.txt | grep -o "http://[0-9a-z]*.ngrok.io" > ngrok_url.txt
+
       - name: Capture Ngrok URL
         run: |
-          cat ngrok_output.txt
-
-
-          
+          cat ngrok_url.txt
