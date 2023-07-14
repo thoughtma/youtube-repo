@@ -82,7 +82,6 @@ jobs:
           done
 
       - name: Start Ngrok
-        id: ngrok
         run: |
           sleep 10 # Wait for Django server to start
           ./ngrok http 8000 --host-header="localhost:8000" > ngrok_output.txt 2> ngrok.log &
