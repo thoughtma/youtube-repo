@@ -24,9 +24,6 @@ jobs:
           curl -O https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-v3-stable-linux-amd64.tgz
           tar -xvf ngrok-v3-stable-linux-amd64.tgz
           chmod +x ngrok
-      - name: Update Ngrok
-        run: |
-          ./ngrok update
       - name: Start Ngrok
         run: |
           ./ngrok http 8000
