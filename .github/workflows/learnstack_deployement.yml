@@ -2,9 +2,11 @@ name: Learnstack Development
 
 on:
   push:
-    branches: ["main"]
+    branches:
+      - main
   pull_request:
-    branches: ["main"]
+    branches:
+      - main
 
 jobs:
   build:
@@ -42,18 +44,18 @@ jobs:
       - name: Start Ngrok
         id: ngrok
         run: |
-          sleep 30 # Wait for Django server to start
+          sleep 10 # Wait for Django server to start
           ./ngrok http 8000 --host-header="localhost:8000" > ngrok_output.txt &
 
       - name: Wait for Ngrok URL
         id: wait_for_ngrok
         run: |
           sleep 30
-          while ! curl -s http://localhost:4040/api/tunnels | grep -q "public_url"; do sleep 5; done
+          while ! grep -q "ngrok.io" ngrok_output.txt; do sleep 5; done
 
       - name: Get Ngrok URL
         run: |
-          curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url' > ngrok_url.txt
+          cat ngrok_output.txt | awk '/https:\/\//{print $NF}' > ngrok_url.txt
 
       - name: Display Ngrok URL
         run: |
