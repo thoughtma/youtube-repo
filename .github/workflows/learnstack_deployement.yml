@@ -1,4 +1,4 @@
-name: Deploy Django App
+name: Learnstack Development
 
 on:
   push:
