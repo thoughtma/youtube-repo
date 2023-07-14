@@ -34,13 +34,17 @@ jobs:
         run: |
           ./ngrok authtoken $NGROK_AUTH_TOKEN
 
-      - name: Start Ngrok and capture URL
-        id: ngrok
+      - name: Install ngrok
+        run: |
+          wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
+          unzip ngrok-stable-linux-amd64.zip
+
+      - name: Deploy with ngrok
         run: |
           ./ngrok http 8000 --region=us > ngrok-log.txt &
           sleep 10
           curl -s localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url'
 
-      - name: Display Ngrok URL
+      - name: Display ngrok URL
         run: |
           echo "Ngrok URL: ${{ steps.ngrok.outputs.stdout }}"
