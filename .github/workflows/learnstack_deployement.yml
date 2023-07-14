@@ -21,9 +21,8 @@ jobs:
           pip install -r requirements.txt
       - name: Install Ngrok
         run: |
-          curl -O https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-v3-stable-linux-amd64.tgz
-          tar -xvf ngrok-v3-stable-linux-amd64.tgz
-          chmod +x ngrok
+          curl -L https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip -o ngrok.zip
+          unzip ngrok.zip
       - name: Start Ngrok
         run: |
-          ./ngrok http 8000
+          ./ngrok http 8000 --region=us
