@@ -34,10 +34,17 @@ jobs:
         run: |
           ./ngrok authtoken $NGROK_AUTH_TOKEN
 
-      - name: Start Ngrok and capture URL
+      - name: Start Ngrok in background
         id: ngrok
         run: |
-          ./ngrok http 8000 > ngrok_output.txt
+          ./ngrok http 8000 > ngrok_output.txt &
+          echo "Ngrok started"
+
+      - name: Wait for Ngrok to initialize
+        run: |
+          sleep 10 # Adjust the sleep duration as needed
+          echo "Ngrok ready"
+
+      - name: Capture Ngrok URL
+        run: |
           cat ngrok_output.txt
-
-
