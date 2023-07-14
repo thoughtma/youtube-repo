@@ -1,46 +1,48 @@
-name: Learnstack Development
+name: Deploy Django App
 
 on:
   push:
-    branches: ["main"]
-  pull_request:
-    branches: ["main"]
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Python version
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
+      - name: Set up Docker
+        uses: docker/setup-docker@v1
 
-      - name: Install dependencies
+      - name: Build and tag Docker image
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          docker build -t your-docker-image-name .
+          docker tag your-docker-image-name:latest your-docker-image-name:tag
 
-      - name: Download and extract ngrok
+      - name: Authenticate with GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: docker.pkg.github.com
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push Docker image to GitHub Container Registry
+        run: |
+          docker push docker.pkg.github.com/${{ github.repository }}/your-docker-image-name:tag
+
+      - name: Install ngrok
         run: |
           wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
           unzip ngrok-stable-linux-amd64.zip
 
-      - name: Authenticate Ngrok
-        env:
-          NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
-        run: |
-          ./ngrok authtoken $NGROK_AUTH_TOKEN
-
-      - name: Start Ngrok and capture URL
-        id: ngrok
+      - name: Deploy with ngrok
         run: |
           ./ngrok http 8000 --region=us > ngrok-log.txt &
           sleep 10
           curl -s localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url'
 
-      - name: Display Ngrok URL
+      - name: Display ngrok URL
         run: |
           echo "Ngrok URL: ${{ steps.ngrok.outputs.stdout }}"
