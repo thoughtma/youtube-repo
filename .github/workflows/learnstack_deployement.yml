@@ -36,14 +36,13 @@ jobs:
 
       - name: Start Django server
         run: |
-          cd learnstack
           python3 manage.py runserver 8000 &
 
       - name: Start Ngrok
         id: ngrok
         run: |
           sleep 5 # Wait for Django server to start
-          ./ngrok http 8000 --host-header="localhost:8000" > ngrok_output.txt &
+          ./ngrok http 8000 --host-header="localhost:8000" > ngrok_output.txt 2>&1 &
 
       - name: Wait for Ngrok URL
         id: wait_for_ngrok
@@ -51,10 +50,6 @@ jobs:
           sleep 10
           while ! curl -s http://localhost:4040/api/tunnels | grep -q "public_url"; do sleep 5; done
 
-      - name: Get Ngrok URL
+      - name: Display Ngrok Logs
         run: |
-          curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url' > ngrok_url.txt
-
-      - name: Display Ngrok URL
-        run: |
-          cat ngrok_url.txt
+          cat ngrok_output.txt
