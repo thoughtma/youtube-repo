@@ -41,16 +41,20 @@ jobs:
           cd learnstack
           python3 manage.py runserver 8000 &
 
+      - name: Wait for Django server to start
+        run: |
+          sleep 10
+
       - name: Start Ngrok
         id: ngrok
         run: |
-          sleep 10 # Wait for Django server to start
           ./ngrok http 8000 --host-header="localhost:8000" > ngrok_output.txt &
-          echo "Waiting for Ngrok tunnel to be established..."
-          sleep 10
+
+      - name: Wait for Ngrok tunnel to be established
+        run: |
+          sleep 30
           while ! grep -q "https://.*ngrok.io" ngrok_output.txt; do
             sleep 5
-            echo "Still waiting..."
           done
 
       - name: Get Ngrok URL
