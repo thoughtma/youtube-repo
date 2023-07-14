@@ -36,6 +36,10 @@ jobs:
         run: |
           ./ngrok authtoken $NGROK_AUTH_TOKEN
 
+      - name: Debug - Print current working directory
+        run: |
+          pwd
+
       - name: Start Django server
         run: |
           cd learnstack
@@ -45,10 +49,22 @@ jobs:
         run: |
           sleep 20
 
+      - name: Debug - List files in directory
+        run: |
+          ls -al
+
+      - name: Set executable permissions for ngrok
+        run: |
+          chmod +x ngrok
+
       - name: Start Ngrok
         id: ngrok
         run: |
           ./ngrok http 8000 --host-header="localhost:8000" > ngrok_output.txt &
+
+      - name: Debug - List files in directory
+        run: |
+          ls -al
 
       - name: Wait for Ngrok tunnel to be established
         run: |
