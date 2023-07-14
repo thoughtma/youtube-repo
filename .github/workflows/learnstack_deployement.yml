@@ -34,11 +34,6 @@ jobs:
         run: |
           ./ngrok authtoken $NGROK_AUTH_TOKEN
 
-      - name: Stop Ngrok
-        run: |
-          killall ngrok
-          sleep 2
-
       - name: Start Ngrok and capture URL
         id: ngrok
         run: |
