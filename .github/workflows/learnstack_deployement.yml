@@ -42,13 +42,13 @@ jobs:
       - name: Start Ngrok
         id: ngrok
         run: |
-          sleep 15 # Wait for Django server to start
+          sleep 30 # Wait for Django server to start
           ./ngrok http 8000 --host-header="localhost:8000" > ngrok_output.txt &
 
       - name: Wait for Ngrok URL
         id: wait_for_ngrok
         run: |
-          sleep 10
+          sleep 30
           while ! curl -s http://localhost:4040/api/tunnels | grep -q "public_url"; do sleep 5; done
 
       - name: Get Ngrok URL
