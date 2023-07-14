@@ -38,8 +38,3 @@ jobs:
         id: ngrok
         run: |
           ./ngrok http 8000 
-          curl -s localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url'
-
-      - name: Display Ngrok URL
-        run: |
-          echo "Ngrok URL: ${{ steps.ngrok.outputs.stdout }}"
