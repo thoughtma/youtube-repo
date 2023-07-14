@@ -30,4 +30,4 @@ jobs:
           ./ngrok authtoken $NGROK_AUTH_TOKEN
       - name: Start Ngrok
         run: |
-          ./ngrok http 8000 --region=us -log=stdout
+          ./ngrok http 80 --region=us -log=stdout
