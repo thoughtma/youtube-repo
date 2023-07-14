@@ -12,29 +12,29 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      
+
       - name: Set up Python version
         uses: actions/setup-python@v2
         with:
           python-version: 3.8
-      
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-      
+
       - name: Download and extract ngrok
         run: |
           wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
           unzip ngrok-stable-linux-amd64.zip
-      
+
       - name: Authenticate Ngrok
         env:
           NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
         run: |
           ./ngrok authtoken $NGROK_AUTH_TOKEN
-      
+
       - name: Start Ngrok
         run: |
-          ./ngrok http 8000 --region=us > ngrok-log.txt & sleep 5
+          ./ngrok http 8000 --region=us > ngrok-log.txt & sleep 10
           cat ngrok-log.txt
