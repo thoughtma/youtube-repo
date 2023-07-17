@@ -1,4 +1,4 @@
-name: Learnstack Development
+name: Learnstack Development to Serveo
 
 on:
   push:
@@ -25,67 +25,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Download and extract ngrok
+      - name: Deploy to Serveo
         run: |
-          wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
-          unzip ngrok-stable-linux-amd64.zip
-
-      - name: Authenticate Ngrok
-        env:
-          NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
-        run: |
-          ./ngrok authtoken $NGROK_AUTH_TOKEN
-
-      - name: Debug - Print current working directory
-        run: |
-          pwd
-
-      - name: Start Django server
-        run: |
-          cd learnstack
-          python3 manage.py runserver 8000 &
-
-      - name: Wait for Django server to start
-        run: |
-          sleep 20
-
-      - name: Debug - List files in directory
-        run: |
-          ls -al
-
-      - name: Set executable permissions for ngrok
-        run: |
-          chmod +x ngrok
-
-      - name: Start Ngrok
-        id: ngrok
-        run: |
-          ./ngrok http 8000 --host-header="localhost:8000" > ngrok_output.txt &
-
-      - name: Debug - List files in directory
-        run: |
-          ls -al
-
-      - name: Wait for Ngrok tunnel to be established
-        run: |
-          timeout=$(($(date +%s) + 300))  # Timeout after 5 minutes
-          while [[ -z $(cat ngrok_output.txt | grep "https://.*ngrok.io") ]]; do
-            if [[ $(date +%s) -gt $timeout ]]; then
-              echo "Timeout reached. Ngrok tunnel setup took too long."
-              echo "ngrok_output.txt:"
-              cat ngrok_output.txt
-              echo "ngrok logs:"
-              cat ngrok.log
-              exit 1
-            fi
-            sleep 5
-          done
-
-      - name: Start Ngrok
-        run: |
-          sleep 10 # Wait for Django server to start
-          ./ngrok http 8000 --host-header="localhost:8000" > ngrok_output.txt 2> ngrok.log &
-
-      - name: Display Ngrok URL
-        run: |
-          cat ngrok_url.txt
+          ssh -R 80:localhost:8000 -o "StrictHostKeyChecking=no" serveo.net
