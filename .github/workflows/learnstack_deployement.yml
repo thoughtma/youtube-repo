@@ -31,7 +31,6 @@ jobs:
           cd learnstack
           nohup python manage.py runserver --noreload &
           sleep 15
-          curl http://localhost:8000  
 
       - name: Deploy to Serveo
         run: |
