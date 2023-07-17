@@ -30,8 +30,13 @@ jobs:
         run: |
           cd learnstack
           nohup python manage.py runserver --noreload &
-          sleep 10
+          sleep 15
+          curl http://localhost:8000  # Verify Django server is running locally
 
       - name: Deploy to Serveo
         run: |
           ssh -R 80:localhost:8000 -o "StrictHostKeyChecking=no" serveo.net
+
+      - name: Stop Django server
+        run: |
+          sudo pkill -f "python manage.py runserver"
