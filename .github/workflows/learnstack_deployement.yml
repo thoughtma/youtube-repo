@@ -24,14 +24,13 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          
+          pip install -r requirements.txt  # Adjust this to your requirements file location
+
       - name: Start Django server
         run: |
-          python manage.py runserver --noreload
-        background: true
+          nohup python manage.py runserver --noreload &
+          sleep 10
 
       - name: Deploy to Serveo
         run: |
-          sleep 10  # Adjust the sleep duration as needed
           ssh -R 80:localhost:8000 -o "StrictHostKeyChecking=no" serveo.net
