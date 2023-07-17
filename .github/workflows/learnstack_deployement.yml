@@ -36,7 +36,3 @@ jobs:
       - name: Deploy to Serveo
         run: |
           ssh -R 80:localhost:8000 -o "StrictHostKeyChecking=no" serveo.net
-
-      - name: Stop Django server
-        run: |
-          sudo pkill -f "python manage.py runserver"
