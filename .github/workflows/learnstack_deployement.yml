@@ -3,11 +3,11 @@ name: Deploy to Serveo
 on:
   push:
     branches:
-      - main  
+      - main
   pull_request:
     branches:
       - main
-  
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -26,12 +26,16 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt 
 
+      - name: Collect static files
+        run: |
+          cd learnstack
+          python manage.py collectstatic --noinput
+
       - name: Start Django server
         run: |
           cd learnstack
           nohup python manage.py runserver --noreload &
-          sleep 15
-          curl http://localhost:8000  
+          sleep 25
 
       - name: Deploy to Serveo
         run: |
