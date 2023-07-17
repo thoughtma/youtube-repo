@@ -3,8 +3,11 @@ name: Deploy to Serveo
 on:
   push:
     branches:
-      - main  # Change this to your main branch name
-
+      - main  
+  pull_request:
+    branches:
+      - main
+  
 jobs:
   deploy:
     runs-on: ubuntu-latest
