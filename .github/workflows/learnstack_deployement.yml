@@ -25,6 +25,7 @@ jobs:
 
       - name: Start Django server
         run: |
+          cd learnstack
           python manage.py runserver --noreload &
 
       - name: Deploy to Serveo
